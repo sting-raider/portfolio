@@ -1890,3 +1890,238 @@ main {
   .character-encounter--sans .character-encounter__dialogue p { font-size: .96rem; }
   .character-encounter--papyrus .character-encounter__dialogue p { font-size: .81rem; }
 }
+
+/* Dialogue portraits use character face art; animation stays in the scenery and Easter eggs. */
+.game-dialogue__portrait .portrait-sprite--face {
+  position: static;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+
+.game-character--kris .game-character__screen,
+.game-character--ralsei .game-character__screen {
+  background: #000;
+}
+
+.game-character--kris .game-character__screen img,
+.game-character--ralsei .game-character__screen img {
+  object-fit: contain;
+}
+
+/* Undertale-style transport: one compact deck, with the track list hidden behind its title. */
+.soundtrack--compact {
+  position: relative;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: minmax(104px, 1fr) repeat(4, 32px);
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 2px solid #fff;
+  background: #000;
+}
+
+.soundtrack__selector,
+.soundtrack--compact .music-control--icon {
+  min-width: 0;
+  min-height: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+  cursor: pointer;
+}
+
+.soundtrack__selector {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15px;
+  align-items: center;
+  gap: 5px;
+  padding-inline: 9px 5px;
+  font-family: "Press Start 2P", monospace;
+  font-size: .42rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.soundtrack__selector span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.soundtrack__selector:hover,
+.soundtrack__selector:focus-visible,
+.soundtrack__selector[aria-expanded="true"] {
+  color: #ffdc38;
+  background: #151000;
+}
+
+.soundtrack--compact .music-control--icon {
+  width: 32px;
+  display: grid;
+  place-items: center;
+}
+
+.soundtrack--compact .music-control--icon:hover,
+.soundtrack--compact .music-control--icon:focus-visible {
+  color: #000;
+  border-color: transparent;
+  background: #ffdc38;
+}
+
+.soundtrack__selector:focus-visible,
+.soundtrack--compact .music-control--icon:focus-visible,
+.soundtrack__tracks button:focus-visible {
+  outline: 2px solid #ffdc38;
+  outline-offset: 2px;
+}
+
+.soundtrack__catalogue {
+  position: absolute;
+  z-index: 140;
+  top: calc(100% + 13px);
+  right: 0;
+  width: 310px;
+  padding: 14px;
+  color: #fff;
+  border: 4px solid #fff;
+  background: #000;
+  box-shadow: 8px 8px 0 rgba(255,255,255,.16), 0 20px 45px rgba(0,0,0,.75);
+}
+
+.soundtrack__catalogue::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  width: 14px;
+  height: 14px;
+  border-top: 4px solid #fff;
+  border-left: 4px solid #fff;
+  background: #000;
+  transform: rotate(45deg);
+}
+
+.soundtrack__catalogue-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 11px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #fff;
+  font-family: "Press Start 2P", monospace;
+}
+
+.soundtrack__catalogue-heading span {
+  color: #ffdc38;
+  font-size: .42rem;
+}
+
+.soundtrack__catalogue-heading strong {
+  font-size: .56rem;
+}
+
+.soundtrack__tracks {
+  display: grid;
+  gap: 3px;
+}
+
+.soundtrack__tracks button {
+  min-height: 34px;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) 17px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  color: #fff;
+  border: 0;
+  border-left: 3px solid transparent;
+  border-radius: 0;
+  background: #000;
+  font-family: "IBM Plex Mono", monospace;
+  text-align: left;
+  cursor: pointer;
+}
+
+.soundtrack__tracks button > span {
+  color: #777;
+  font-size: .68rem;
+}
+
+.soundtrack__tracks button > strong {
+  overflow: hidden;
+  font-size: .72rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.soundtrack__tracks button:hover,
+.soundtrack__tracks button.active {
+  color: #ffdc38;
+  border-left-color: #ffdc38;
+  background: #151000;
+}
+
+.soundtrack__tracks button.active > span { color: #ffdc38; }
+.soundtrack__catalogue > p {
+  margin: 11px 0 0;
+  color: #aaa;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .63rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1120px) {
+  .soundtrack--compact {
+    min-width: 218px;
+    grid-template-columns: minmax(72px, 1fr) repeat(4, 30px);
+  }
+
+  .soundtrack--compact .music-control--icon {
+    width: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .soundtrack--compact {
+    min-width: 176px;
+    grid-template-columns: minmax(44px, 1fr) repeat(4, 28px);
+  }
+
+  .soundtrack--compact .music-control--icon {
+    width: 28px;
+  }
+
+  .soundtrack__selector {
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 5px;
+  }
+
+  .soundtrack__selector svg { display: none; }
+  .soundtrack__catalogue {
+    position: fixed;
+    top: 66px;
+    right: 12px;
+    width: min(320px, calc(100vw - 24px));
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header { padding-inline: 10px; }
+  .brand { gap: 6px; }
+  .soundtrack--compact {
+    min-width: 166px;
+    grid-template-columns: minmax(38px, 1fr) repeat(4, 27px);
+  }
+  .soundtrack--compact .music-control--icon { width: 27px; }
+}
