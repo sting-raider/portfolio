@@ -2125,3 +2125,17 @@ main {
   }
   .soundtrack--compact .music-control--icon { width: 27px; }
 }
+
+/* Fix Kris and Ralsei portrait proportions */
+.game-character__screen,
+.game-character--compact .game-character__screen {
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.game-character__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
