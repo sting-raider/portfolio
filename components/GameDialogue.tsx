@@ -32,37 +32,48 @@ export function GameDialogue() {
   const [index, setIndex] = useState(0);
   const next = () => setIndex((value) => (value + 1) % lines.length);
 
-useEffect(() => {
-  // Preload every portrait so character changes appear instantly.
-  const portraits = [...new Set(lines.map((line) => line.src))];
+  useEffect(() => {
+    const portraits = [...new Set(lines.map((line) => line.src))];
 
-  portraits.forEach((src) => {
-    const image = new Image();
-    image.src = src;
-  });
+    portraits.forEach((src) => {
+      const image = new Image();
+      image.src = src;
+    });
 
-  const handleKey = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
-      event.preventDefault();
-      next();
-    }
-  };
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        next();
+      }
+    };
 
-  window.addEventListener("keydown", handleKey);
-  return () => window.removeEventListener("keydown", handleKey);
-}, []);
-
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
   return (
-    <button className="game-dialogue" onClick={next} aria-label="Advance character dialogue">
-      <span className={`game-dialogue__portrait portrait--${lines[index].speaker.toLowerCase()}`}>
+    <button
+      className="game-dialogue"
+      onClick={next}
+      aria-label="Advance character dialogue"
+    >
+      <span
+        className={`game-dialogue__portrait portrait--${lines[
+          index
+        ].speaker.toLowerCase()}`}
+      >
         <img
           className="portrait-sprite portrait-sprite--face"
           src={lines[index].src}
           alt=""
         />
       </span>
-      <span className="game-dialogue__copy"><strong>{lines[index].speaker}</strong><span>{lines[index].text}</span></span>
+
+      <span className="game-dialogue__copy">
+        <strong>{lines[index].speaker}</strong>
+        <span>{lines[index].text}</span>
+      </span>
+
       <i>▼</i>
     </button>
   );
