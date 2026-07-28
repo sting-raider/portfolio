@@ -1917,7 +1917,7 @@ main {
   position: relative;
   min-width: 300px;
   display: grid;
-  grid-template-columns: minmax(104px, 1fr) repeat(4, 32px);
+  grid-template-columns: minmax(72px, 1fr) repeat(5, 32px);
   align-items: center;
   gap: 2px;
   padding: 3px;
@@ -1971,7 +1971,8 @@ main {
 }
 
 .soundtrack--compact .music-control--icon:hover,
-.soundtrack--compact .music-control--icon:focus-visible {
+.soundtrack--compact .music-control--icon:focus-visible,
+.soundtrack--compact .music-control--icon.is-active {
   color: #000;
   border-color: transparent;
   background: #ffdc38;
@@ -2083,8 +2084,8 @@ main {
 
 @media (max-width: 1120px) {
   .soundtrack--compact {
-    min-width: 218px;
-    grid-template-columns: minmax(72px, 1fr) repeat(4, 30px);
+    min-width: 244px;
+    grid-template-columns: minmax(60px, 1fr) repeat(5, 30px);
   }
 
   .soundtrack--compact .music-control--icon {
@@ -2094,8 +2095,8 @@ main {
 
 @media (max-width: 900px) {
   .soundtrack--compact {
-    min-width: 176px;
-    grid-template-columns: minmax(44px, 1fr) repeat(4, 28px);
+    min-width: 206px;
+    grid-template-columns: minmax(38px, 1fr) repeat(5, 28px);
   }
 
   .soundtrack--compact .music-control--icon {
@@ -2120,8 +2121,8 @@ main {
   .site-header { padding-inline: 10px; }
   .brand { gap: 6px; }
   .soundtrack--compact {
-    min-width: 166px;
-    grid-template-columns: minmax(38px, 1fr) repeat(4, 27px);
+    min-width: 196px;
+    grid-template-columns: minmax(31px, 1fr) repeat(5, 27px);
   }
   .soundtrack--compact .music-control--icon { width: 27px; }
 }
@@ -2138,4 +2139,27 @@ main {
   height: 100%;
   object-fit: contain;
   object-position: center;
+}
+
+/* Contact portrait: give Ralsei breathing room inside the frame instead of touching its edges. */
+.contact-mascot .game-character {
+  width: 220px;
+}
+
+.contact-mascot .game-character__screen {
+  width: 220px;
+  height: 198px;
+  padding: 18px 25px 15px;
+}
+
+@media (max-width: 560px) {
+  .contact-mascot .game-character {
+    width: 185px;
+  }
+
+  .contact-mascot .game-character__screen {
+    width: 185px;
+    height: 166px;
+    padding: 14px 21px 12px;
+  }
 }

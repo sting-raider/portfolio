@@ -6,6 +6,7 @@ export type OstTrack = {
 };
 
 export const ostTracks: OstTrack[] = [
+  { title: "Lost Girl", url: assetUrl("/assets/audio/lost-girl.mp3") },
   { title: "Fallen Down", url: assetUrl("/assets/audio/fallen-down.mp3") },
   { title: "Spider Dance", url: assetUrl("/assets/audio/spider-dance.mp3") },
   { title: "Hopes and Dreams", url: assetUrl("/assets/audio/hopes-and-dreams.mp3") },

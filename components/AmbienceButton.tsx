@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Volume2, VolumeX } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Repeat, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ostTracks } from "@/data/ost";
 
@@ -10,6 +10,7 @@ export function AmbienceButton() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [repeat, setRepeat] = useState(false);
   const [failed, setFailed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const currentTrack = ostTracks[currentIndex];
@@ -70,10 +71,31 @@ export function AmbienceButton() {
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (audio && !audio.currentSrc) {
-      audio.src = ostTracks[0].url;
-      audio.load();
-    }
+    if (!audio) return;
+
+    let disposed = false;
+    const cleanupFallback = () => {
+      document.removeEventListener("click", startAfterInteraction, true);
+      document.removeEventListener("keydown", startAfterInteraction, true);
+    };
+    const startAfterInteraction = () => {
+      if (disposed || !audio.paused) {
+        cleanupFallback();
+        return;
+      }
+      void audio.play().then(cleanupFallback).catch(() => undefined);
+    };
+
+    audio.src = ostTracks[0].url;
+    audio.load();
+    document.addEventListener("click", startAfterInteraction, true);
+    document.addEventListener("keydown", startAfterInteraction, true);
+    void audio.play().catch(() => undefined);
+
+    return () => {
+      disposed = true;
+      cleanupFallback();
+    };
   }, []);
 
   useEffect(() => {
@@ -96,6 +118,7 @@ export function AmbienceButton() {
       <audio
         ref={audioRef}
         muted={muted}
+        loop={repeat}
         onPlay={() => { setPlaying(true); setFailed(false); }}
         onPause={() => setPlaying(false)}
         onEnded={() => moveTrack(1, true)}
@@ -121,6 +144,16 @@ export function AmbienceButton() {
       </button>
       <button className="music-control music-control--icon" type="button" onClick={() => moveTrack(1)} aria-label="Next soundtrack song" title="Next song">
         <ChevronRight size={19} />
+      </button>
+      <button
+        className={`music-control music-control--icon ${repeat ? "is-active" : ""}`}
+        type="button"
+        onClick={() => setRepeat((value) => !value)}
+        aria-label={repeat ? "Disable soundtrack repeat" : "Repeat soundtrack song"}
+        aria-pressed={repeat}
+        title={repeat ? "Repeat on" : "Repeat song"}
+      >
+        <Repeat size={17} />
       </button>
       <button className="music-control music-control--icon" type="button" onClick={toggleMute} aria-label={muted ? "Unmute soundtrack" : "Mute soundtrack"} title={muted ? "Unmute" : "Mute"}>
         {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
