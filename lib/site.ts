@@ -1,4 +1,4 @@
-export const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function assetUrl(path: string) {
   const normalized = path.startsWith("/") ? path : `/${path}`;

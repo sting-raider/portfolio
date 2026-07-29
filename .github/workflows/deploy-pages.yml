@@ -45,6 +45,9 @@ jobs:
         run: pnpm run build
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
+          NEXT_PUBLIC_UMAMI_SCRIPT_URL: ${{ vars.UMAMI_SCRIPT_URL }}
+          NEXT_PUBLIC_UMAMI_DOMAINS: ${{ vars.UMAMI_DOMAINS }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

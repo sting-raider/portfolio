@@ -4,6 +4,7 @@ import "@fontsource-variable/space-grotesk";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 import { SiteShell } from "@/components/SiteShell";
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body><SiteShell>{children}</SiteShell></body>
+      <body>
+        <SiteShell>{children}</SiteShell>
+        <Analytics />
+      </body>
     </html>
   );
 }

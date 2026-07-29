@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { assetUrl } from "@/lib/site";
 
 export type SoulColor = "red" | "yellow" | "orange" | "purple" | "green" | "blue" | "cyan";
 
-const colors: SoulColor[] = ["red", "yellow", "orange", "purple", "green", "blue", "cyan"];
+type SoulPhase = "intact" | "split" | "shattering";
 
 type SoulProps = {
   color?: SoulColor;
@@ -14,15 +15,34 @@ type SoulProps = {
 };
 
 export function Soul({ color = "red", interactive = false, label = "Interact with the SOUL", size = "medium" }: SoulProps) {
-  const [current, setCurrent] = useState(color);
-  const [broken, setBroken] = useState(false);
-  const timer = useRef<number | null>(null);
+  const [phase, setPhase] = useState<SoulPhase>("intact");
+  const timers = useRef<number[]>([]);
+  const crackAudio = useRef<HTMLAudioElement | null>(null);
+  const shatterAudio = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => setCurrent(color), [color]);
+  useEffect(() => {
+    crackAudio.current = new Audio(assetUrl("/assets/sfx/snd_break1.wav"));
+    shatterAudio.current = new Audio(assetUrl("/assets/sfx/snd_break2.wav"));
+    crackAudio.current.preload = "auto";
+    shatterAudio.current.preload = "auto";
 
-  useEffect(() => () => {
-    if (timer.current) window.clearTimeout(timer.current);
+    return () => {
+      timers.current.forEach(window.clearTimeout);
+      timers.current = [];
+      crackAudio.current?.pause();
+      shatterAudio.current?.pause();
+      crackAudio.current = null;
+      shatterAudio.current = null;
+    };
   }, []);
+
+  const playEffect = (audio: HTMLAudioElement | null) => {
+    if (!audio) return;
+    audio.currentTime = 0;
+    void audio.play().catch(() => {
+      // The click is a user gesture, but browsers may still block audio in strict modes.
+    });
+  };
 
   const pieces = (
     <>
@@ -36,24 +56,48 @@ export function Soul({ color = "red", interactive = false, label = "Interact wit
           <path d="M2 0h4v2h4V0h4v2h2v6h-2v2h-2v2h-2v2H6v-2H4v-2H2V8H0V2h2z" />
         </svg>
       </span>
+      {interactive ? (
+        <span className="pixel-soul__shards" aria-hidden="true">
+          {Array.from({ length: 8 }, (_, index) => (
+            <span className="pixel-soul__shard" key={index} />
+          ))}
+        </span>
+      ) : null}
     </>
   );
 
   if (!interactive) {
-    return <span className={`pixel-soul pixel-soul--${current} pixel-soul--${size}`} aria-hidden="true">{pieces}</span>;
+    return <span className={`pixel-soul pixel-soul--${color} pixel-soul--${size}`} aria-hidden="true">{pieces}</span>;
   }
 
   const shatter = () => {
-    if (broken) return;
-    setBroken(true);
-    timer.current = window.setTimeout(() => {
-      setBroken(false);
-      setCurrent((value) => colors[(colors.indexOf(value) + 1) % colors.length]);
-    }, 720);
+    if (phase !== "intact") return;
+
+    setPhase("split");
+    playEffect(crackAudio.current);
+
+    timers.current.push(
+      window.setTimeout(() => {
+        setPhase("shattering");
+        playEffect(shatterAudio.current);
+      }, 820),
+      window.setTimeout(() => {
+        setPhase("intact");
+        timers.current = [];
+      }, 1680),
+    );
   };
 
+  const activeColor = phase === "intact" ? color : "red";
+
   return (
-    <button className={`pixel-soul pixel-soul--${current} pixel-soul--${size} ${broken ? "is-broken" : ""}`} onClick={shatter} aria-label={label} title="Try clicking the SOUL">
+    <button
+      className={`pixel-soul pixel-soul--${activeColor} pixel-soul--${size} is-${phase}`}
+      onClick={shatter}
+      aria-label={phase === "intact" ? label : "The SOUL shattered"}
+      aria-disabled={phase !== "intact"}
+      title="Try clicking the SOUL"
+    >
       {pieces}
     </button>
   );
