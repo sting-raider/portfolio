@@ -5,6 +5,8 @@ import { assetUrl } from "@/lib/site";
 
 export type SoulColor = "red" | "yellow" | "orange" | "purple" | "green" | "blue" | "cyan";
 
+const colors: SoulColor[] = ["red", "yellow", "orange", "purple", "green", "blue", "cyan"];
+
 type SoulPhase = "intact" | "split" | "shattering";
 
 type SoulProps = {
@@ -15,10 +17,18 @@ type SoulProps = {
 };
 
 export function Soul({ color = "red", interactive = false, label = "Interact with the SOUL", size = "medium" }: SoulProps) {
+  const [current, setCurrent] = useState(color);
   const [phase, setPhase] = useState<SoulPhase>("intact");
   const timers = useRef<number[]>([]);
   const crackAudio = useRef<HTMLAudioElement | null>(null);
   const shatterAudio = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    timers.current.forEach(window.clearTimeout);
+    timers.current = [];
+    setCurrent(color);
+    setPhase("intact");
+  }, [color]);
 
   useEffect(() => {
     crackAudio.current = new Audio(assetUrl("/assets/sfx/snd_break1.wav"));
@@ -83,16 +93,15 @@ export function Soul({ color = "red", interactive = false, label = "Interact wit
       }, 820),
       window.setTimeout(() => {
         setPhase("intact");
+        setCurrent((value) => colors[(colors.indexOf(value) + 1) % colors.length]);
         timers.current = [];
       }, 1680),
     );
   };
 
-  const activeColor = phase === "intact" ? color : "red";
-
   return (
     <button
-      className={`pixel-soul pixel-soul--${activeColor} pixel-soul--${size} is-${phase}`}
+      className={`pixel-soul pixel-soul--${current} pixel-soul--${size} is-${phase}`}
       onClick={shatter}
       aria-label={phase === "intact" ? label : "The SOUL shattered"}
       aria-disabled={phase !== "intact"}

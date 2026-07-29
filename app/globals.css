@@ -1118,7 +1118,7 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
   width: 4px;
   height: 4px;
   margin: -2px;
-  background: #ff152b;
+  background: var(--soul-color);
   opacity: 0;
   image-rendering: pixelated;
 }
