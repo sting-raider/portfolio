@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "@fontsource/press-start-2p/400.css";
 import "@fontsource-variable/space-grotesk";
 import "@fontsource/ibm-plex-mono/400.css";
@@ -6,6 +7,12 @@ import "@fontsource/ibm-plex-mono/600.css";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { SiteShell } from "@/components/SiteShell";
+
+const pixelPapyrus = localFont({
+  src: "./fonts/papyrus-undertale.woff",
+  variable: "--font-pixel-papyrus",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: { default: "Ali Sufiyan Khan — Software Engineer & AI Builder", template: "%s | Ali Sufiyan Khan" },
@@ -21,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body>
+      <body className={pixelPapyrus.variable}>
         <SiteShell>{children}</SiteShell>
         <Analytics />
       </body>
