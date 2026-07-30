@@ -21,19 +21,19 @@ export default function ProjectsPage() {
           src={assetUrl("/assets/sprites/sans-overworld.png")}
           lineImages={[
             {
-              src: assetUrl("/assets/dialogue/sans-projects-1.png"),
+              src: assetUrl("/assets/dialogue/sans-projects-line-1.png"),
               text: "* heya. four projects,",
             },
             {
-              src: assetUrl("/assets/dialogue/sans-projects-2.png"),
+              src: assetUrl("/assets/dialogue/sans-projects-line-2.png"),
               text: "zero shortcuts. pick one",
             },
             {
-              src: assetUrl("/assets/dialogue/sans-projects-3.png"),
+              src: assetUrl("/assets/dialogue/sans-projects-line-3.png"),
               text: "and see what ali's been",
             },
             {
-              src: assetUrl("/assets/dialogue/sans-projects-4.png"),
+              src: assetUrl("/assets/dialogue/sans-projects-line-4.png"),
               text: "up to.",
             },
           ]}
