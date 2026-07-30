@@ -22,11 +22,19 @@ export default function ProjectsPage() {
           lineImages={[
             {
               src: assetUrl("/assets/dialogue/sans-projects-1.png"),
-              text: "* heya. four projects, zero shortcuts.",
+              text: "* heya. four projects,",
             },
             {
               src: assetUrl("/assets/dialogue/sans-projects-2.png"),
-              text: "* pick one and see what ali's been up to.",
+              text: "zero shortcuts. pick one",
+            },
+            {
+              src: assetUrl("/assets/dialogue/sans-projects-3.png"),
+              text: "and see what ali's been",
+            },
+            {
+              src: assetUrl("/assets/dialogue/sans-projects-4.png"),
+              text: "up to.",
             },
           ]}
         />
