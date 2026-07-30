@@ -23,7 +23,7 @@ The site uses Next.js static export and writes the deployable site to `out/`. Pu
 
 The public portfolio supports cookie-free Umami page and résumé-download tracking when the `UMAMI_WEBSITE_ID` GitHub Actions repository variable is configured. Optional `UMAMI_SCRIPT_URL` and `UMAMI_DOMAINS` variables override the Cloud script and allowed hostnames.
 
-The owner-only Alphys analytics console is a separate server-rendered app in [`analytics-dashboard`](./analytics-dashboard). It must be deployed to a server host such as Vercel because GitHub Pages cannot safely hold its admin credentials or private API key. Its setup and required environment variables are documented in that directory.
+The login-gated Alphys analytics console is a separate server-rendered app in [`analytics-dashboard`](./analytics-dashboard). It embeds a free, read-only Umami Share report, so no paid Cloud API key is required. It still needs a server host such as Vercel because GitHub Pages cannot safely hold its admin credentials. Its setup and required environment variables are documented in that directory.
 
 ## Fan project credits
 
