@@ -21,7 +21,7 @@ No session recording, heatmap, advertising identifier, or form-field content is 
 5. Generate a long random `SESSION_SECRET`.
 6. Run `npm install` and `npm run dev`.
 
-The supplied share URL is used as the built-in default, so an existing deployment can work without an Umami environment variable. Set `UMAMI_SHARE_URL` when the link is regenerated.
+UMAMI_SHARE_URL must be configured in the deployment environment. Do not commit the real Share URL to the repository.
 
 ## Deployment
 
