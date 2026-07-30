@@ -1636,13 +1636,14 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
 .character-encounter__dialogue {
   position: relative;
   width: 100%;
-  min-height: 154px;
+  height: 211px;
   padding: 23px 25px 29px;
   color: #fff;
   border: 5px solid #fff;
   background: #000;
   text-align: left;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .character-encounter__dialogue strong {
@@ -1657,6 +1658,12 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
 .character-encounter__dialogue p {
   margin: 0;
   color: #fff;
+}
+
+.character-encounter__typed-lines > span {
+  display: block;
+  min-height: 1.62em;
+  white-space: nowrap;
 }
 
 .character-encounter__dialogue > .character-encounter__arrow {
@@ -1736,7 +1743,7 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
   .character-encounter__stage { min-height: 145px; }
   .character-encounter--sans .character-encounter__stage img { width: 92px; height: 120px; }
   .character-encounter--papyrus .character-encounter__stage img { width: 78px; height: 132px; }
-  .character-encounter__dialogue { min-height: 145px; padding: 18px 17px 25px; border-width: 4px; }
+  .character-encounter__dialogue { height: 190px; padding: 18px 17px 25px; border-width: 4px; }
   .character-encounter__dialogue strong { margin-bottom: 11px; font-size: .53rem; }
   .character-encounter .raster-typewriter__line img { height: 23px; }
   .character-encounter--sans .character-encounter__dialogue p { font-size: .96rem; }

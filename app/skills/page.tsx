@@ -22,6 +22,12 @@ export default function SkillsPage() {
           name="PAPYRUS"
           line="HUMAN! THESE TOOLS ARE ACCEPTABLE! NOW SHOW ME WHICH ONES YOU ACTUALLY USED!"
           src={assetUrl("/assets/sprites/papyrus-overworld.gif")}
+          textLines={[
+            "HUMAN! THESE TOOLS",
+            "ARE ACCEPTABLE!",
+            "NOW SHOW ME WHICH",
+            "ONES YOU ACTUALLY USED!",
+          ]}
         />
       </section>
       <section className="content-section inventory-layout">
