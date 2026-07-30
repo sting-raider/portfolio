@@ -19,6 +19,16 @@ export default function ProjectsPage() {
           name="SANS"
           line="* heya. four projects, zero shortcuts. pick one and see what ali's been up to."
           src={assetUrl("/assets/sprites/sans-overworld.png")}
+          lineImages={[
+            {
+              src: assetUrl("/assets/dialogue/sans-projects-1.png"),
+              text: "* heya. four projects, zero shortcuts.",
+            },
+            {
+              src: assetUrl("/assets/dialogue/sans-projects-2.png"),
+              text: "* pick one and see what ali's been up to.",
+            },
+          ]}
         />
       </section>
       <section className="content-section">

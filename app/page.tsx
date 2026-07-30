@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { GameDialogue } from "@/components/GameDialogue";
+import { SansDialogue } from "@/components/SansDialogue";
 import { Soul } from "@/components/Soul";
 import { projects } from "@/data/portfolio";
-import { assetUrl } from "@/lib/site";
+import { assetUrl, resumeDownloadUrl } from "@/lib/site";
 
 export default function Home() {
   return (
@@ -36,7 +37,7 @@ export default function Home() {
           <p>* The sight of four ambitious projects fills you with determination.</p>
           <div className="save-stats"><span>ALI</span><span>LV 20</span><span>72:18</span></div>
         </div>
-        <a href={assetUrl("/Ali_Sufiyan_Khan_Resume.pdf")} download className="save-button" data-umami-event="resume-download" data-umami-event-location="home"><Download size={18} /> SAVE / RÉSUMÉ</a>
+        <a href={resumeDownloadUrl} download className="save-button" data-umami-event="resume-download" data-umami-event-location="home"><Download size={18} /> SAVE / RÉSUMÉ</a>
       </section>
 
       <section className="snowdin-archive">
@@ -46,7 +47,7 @@ export default function Home() {
             <h2>THE PROJECT<br />ARCHIVE</h2>
           </div>
           <div className="snowdin-archive__action">
-            <div className="sans-dialogue"><strong>SANS</strong><p>* these files are pretty cool.<br />* and by cool, i mean some of them use kubernetes.</p></div>
+            <SansDialogue />
             <Link href="/projects" className="undertale-button"><Soul size="small" /> INSPECT PROJECTS</Link>
           </div>
         </div>

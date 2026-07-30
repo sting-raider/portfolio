@@ -1,0 +1,8 @@
+Papyrus Font [UNDERTALE]
+Designer: DecorouzSpoNge.YT
+Source: https://fontstruct.com/fontstructions/show/1817942/papyrus-text-6-9
+License: Creative Commons Attribution-ShareAlike 3.0
+License URL: https://creativecommons.org/licenses/by-sa/3.0/
+
+The webfont file used by this non-commercial fan portfolio is an unmodified
+copy of the FontStruct release.
