@@ -13,17 +13,20 @@ type CharacterEncounterProps = {
   line: string;
   src: string;
   lineImages?: RasterizedDialogueLine[];
+  textLines?: string[];
 };
 
-export function CharacterEncounter({ character, name, line, src, lineImages }: CharacterEncounterProps) {
-  const spokenText = lineImages?.map((item) => item.text).join("\n") ?? line;
+export function CharacterEncounter({ character, name, line, src, lineImages, textLines }: CharacterEncounterProps) {
+  const fixedTextLines = textLines ?? [line];
+  const spokenText = lineImages?.map((item) => item.text).join("\n") ?? fixedTextLines.join("\n");
   const { visibleCharacters, complete, started, finish } = useCharacterTypewriter({
     text: spokenText,
     voiceUrl: assetUrl(character === "sans" ? "/assets/sfx/sans-talk.wav" : "/assets/sfx/papyrus-talk.wav"),
     speed: character === "sans" ? 36 : 31,
-    volume: character === "sans" ? 0.14 : 0.16,
+    volume: character === "sans" ? 0.85 : 0.9,
     initialDelay: 360,
   });
+  let textOffset = 0;
 
   return (
     <aside className={`character-encounter character-encounter--${character}`} aria-label={`${name} says: ${line}`}>
@@ -43,12 +46,19 @@ export function CharacterEncounter({ character, name, line, src, lineImages }: C
             <p className="sr-only">{spokenText}</p>
           </>
         ) : (
-          <p aria-hidden="true">
-            {line.slice(0, visibleCharacters)}
-            {!complete && started && <span className="game-dialogue__cursor">▮</span>}
+          <p className="character-encounter__typed-lines" aria-hidden="true">
+            {fixedTextLines.map((textLine, index) => {
+              const lineCharacters = Math.max(
+                0,
+                Math.min(textLine.length, visibleCharacters - textOffset),
+              );
+              textOffset += textLine.length + (index < fixedTextLines.length - 1 ? 1 : 0);
+
+              return <span key={textLine}>{textLine.slice(0, lineCharacters)}</span>;
+            })}
           </p>
         )}
-        {lineImages && !complete && started && <span className="game-dialogue__cursor character-encounter__cursor" aria-hidden="true">▮</span>}
+        {!complete && started && <span className="game-dialogue__cursor character-encounter__cursor" aria-hidden="true">▮</span>}
         <span className="character-encounter__arrow" aria-hidden="true">{complete ? "▼" : ""}</span>
       </button>
     </aside>

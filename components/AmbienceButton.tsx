@@ -4,6 +4,8 @@ import { Check, ChevronDown, ChevronLeft, ChevronRight, Pause, Play, Repeat, Vol
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ostTracks } from "@/data/ost";
 
+const OST_VOLUME = 0.42;
+
 export function AmbienceButton() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const playerRef = useRef<HTMLDivElement | null>(null);
@@ -23,6 +25,7 @@ export function AmbienceButton() {
     setFailed(false);
     audio.src = ostTracks[index].url;
     audio.muted = muted;
+    audio.volume = OST_VOLUME;
     audio.load();
 
     if (shouldPlay) {
@@ -87,6 +90,7 @@ export function AmbienceButton() {
     };
 
     audio.src = ostTracks[0].url;
+    audio.volume = OST_VOLUME;
     audio.load();
     document.addEventListener("click", startAfterInteraction, true);
     document.addEventListener("keydown", startAfterInteraction, true);

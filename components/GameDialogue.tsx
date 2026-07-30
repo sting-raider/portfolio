@@ -117,7 +117,7 @@ export function GameDialogue() {
       voicePools.current[dialogueLine.speaker] = Array.from({ length: 4 }, () => {
         const audio = new Audio(dialogueLine.voice);
         audio.preload = "auto";
-        audio.volume = dialogueLine.speaker === "SUSIE" ? 0.16 : 0.13;
+        audio.volume = dialogueLine.speaker === "SUSIE" ? 0.65 : 0.95;
         return audio;
       });
     }
