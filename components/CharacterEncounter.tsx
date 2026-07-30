@@ -49,7 +49,7 @@ export function CharacterEncounter({ character, name, line, src, lineImages }: C
           </p>
         )}
         {lineImages && !complete && started && <span className="game-dialogue__cursor character-encounter__cursor" aria-hidden="true">▮</span>}
-        <span aria-hidden="true">{complete ? "▼" : ""}</span>
+        <span className="character-encounter__arrow" aria-hidden="true">{complete ? "▼" : ""}</span>
       </button>
     </aside>
   );
