@@ -16,8 +16,8 @@ const pixelPapyrus = localFont({
 
 export const metadata: Metadata = {
   title: { default: "Ali Sufiyan Khan — Software Engineer & AI Builder", template: "%s | Ali Sufiyan Khan" },
-  description: "Software engineer building reinforcement learning systems, AI products, robotics simulations, and multi-cloud infrastructure.",
-  keywords: ["Ali Sufiyan Khan", "software engineer", "AI", "reinforcement learning", "robotics", "cloud infrastructure"],
+  description: "Software engineer building agentic commerce, evidence-grounded AI, network security systems, robotics, and distributed infrastructure.",
+  keywords: ["Ali Sufiyan Khan", "software engineer", "AI", "DANTE", "AegisFlow", "RoleAtlas", "robotics", "document intelligence"],
   openGraph: {
     title: "Ali Sufiyan Khan — Software Engineer & AI Builder",
     description: "A fan-made Dark World portfolio of AI, robotics, and distributed systems projects.",

@@ -34,8 +34,8 @@ export default function Home() {
       <section className="save-panel">
         <div className="save-star" aria-hidden="true">✦</div>
         <div>
-          <p>* The sight of four ambitious projects fills you with determination.</p>
-          <div className="save-stats"><span>ALI</span><span>LV 20</span><span>72:18</span></div>
+          <p>* Your save file has grown. {projects.length} projects fill you with determination.</p>
+          <div className="save-stats"><span>ALI</span><span>LV 20</span><span>SEP 2026</span></div>
         </div>
         <a href={resumeDownloadUrl} download className="save-button" data-umami-event="resume-download" data-umami-event-location="home"><Download size={18} /> SAVE / RÉSUMÉ</a>
       </section>
@@ -43,7 +43,7 @@ export default function Home() {
       <section className="snowdin-archive">
         <div className="snowdin-archive__copy">
           <div>
-            <p className="character-kicker">UNDERTALE PROJECT SELECT</p>
+            <p className="character-kicker">NEW ENCOUNTERS / SEPTEMBER 2026</p>
             <h2>THE PROJECT<br />ARCHIVE</h2>
           </div>
           <div className="snowdin-archive__action">
@@ -54,14 +54,14 @@ export default function Home() {
       </section>
 
       <section className="encounter-list">
-        <div className="encounter-list__head"><p>* FOUR ENCOUNTERS APPEARED.</p><span>Choose one to inspect.</span></div>
+        <div className="encounter-list__head"><p>* {projects.length} ENCOUNTERS APPEARED.</p><span>Commerce. Knowledge. Security. Robotics.</span></div>
         <div className="encounter-grid">
           {projects.map((project, index) => (
             <Link href={`/projects/${project.slug}`} className="encounter" key={project.slug}>
               <span className="encounter__soul"><Soul size="small" /></span>
               <span className="encounter__number">0{index + 1}</span>
               <div><p>{project.status}</p><h3>{project.shortName}</h3><span>{project.summary}</span></div>
-              <strong>{project.metric}</strong>
+              <strong>{project.metric}<small>{project.metricLabel}</small></strong>
             </Link>
           ))}
         </div>

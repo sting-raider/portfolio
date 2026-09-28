@@ -193,7 +193,7 @@ em { color: var(--cyan); font-family: "IBM Plex Mono Variable", monospace; font-
 .project-hero h1 { margin: 22px 0 27px; font-size: clamp(3rem, 5.3vw, 5.8rem); }
 .project-hero em, .project-page .eyebrow { color: var(--project-accent); }
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
-.tag-row span { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); background: rgba(255,255,255,.025); font-family: "IBM Plex Mono Variable"; font-size: .7rem; }
+.tag-row span { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); background: rgba(255,255,255,.025); font-family: "IBM Plex Mono", monospace; font-size: .7rem; }
 .project-hero__visual { position: relative; height: 470px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: linear-gradient(rgba(255,255,255,.025), rgba(255,255,255,.008)); overflow: hidden; }
 .project-hero__visual::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(color-mix(in srgb, var(--project-accent) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--project-accent) 7%, transparent) 1px, transparent 1px); background-size: 38px 38px; }
 .project-stat { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 20px; padding: 30px 34px; border-block: 1px solid var(--border); }
@@ -1984,6 +1984,106 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
     grid-template-columns: minmax(31px, 1fr) repeat(5, 27px);
   }
   .soundtrack--compact .music-control--icon { width: 27px; }
+}
+
+/* Scroll encounters: discrete pixel movement, with no layout shifts. */
+.scroll-waiting {
+  opacity: 0;
+  translate: 0 28px;
+}
+.scroll-arrived {
+  animation: room-enter 480ms steps(6, end) var(--reveal-delay, 0s) both;
+}
+.encounter.scroll-arrived,
+.project-card.scroll-arrived,
+.save-slot.scroll-arrived {
+  animation-name: encounter-enter;
+}
+@keyframes room-enter {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes encounter-enter {
+  0% { opacity: 0; translate: -24px 12px; }
+  60% { opacity: 1; translate: 4px 0; }
+  100% { opacity: 1; translate: 0 0; }
+}
+.room-progress {
+  --room-progress: 0;
+  position: fixed;
+  z-index: 50;
+  right: 20px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 2px solid #fff;
+  background: #000;
+  pointer-events: none;
+}
+.room-progress__label {
+  color: #fff;
+  font-family: "Press Start 2P", monospace;
+  font-size: .5rem;
+}
+.room-progress__track {
+  position: relative;
+  width: 108px;
+  height: 6px;
+  background: repeating-linear-gradient(to right, #333 0 8px, transparent 8px 12px);
+}
+.room-progress__fill {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to right, #ffdc38 0 8px, transparent 8px 12px);
+  transform: scaleX(var(--room-progress));
+  transform-origin: left;
+}
+.room-progress__soul {
+  position: absolute;
+  left: calc(var(--room-progress) * 100%);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+.room-progress__soul .soul { filter: none; }
+.room-progress__save { color: #ffdc38; font-size: 21px; line-height: 1; }
+.project-boundary {
+  margin: 0 0 32px;
+  padding: clamp(22px, 4vw, 38px);
+  border: 3px solid var(--project-accent, #ffdc38);
+  background: #000;
+}
+.project-boundary > p:last-child {
+  max-width: 85ch;
+  margin-bottom: 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.75;
+  color: #d0d0d7;
+}
+.project-source-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.inventory-tabs button small, .architecture-node small { font-family: "IBM Plex Mono", monospace; }
+.encounter > div, .quick-projects > a, .project-card__main { min-width: 0; }
+.encounter h3, .quick-projects h2 { overflow-wrap: anywhere; }
+.project-page .project-hero h1 { overflow-wrap: anywhere; }
+.encounter div > p { font-size: .7rem; line-height: 1.5; }
+.encounter-list__head { font-size: .75rem; line-height: 1.6; }
+.encounter-list__head span { font-size: .75rem; }
+.encounter > strong { display: grid; gap: 10px; max-width: 180px; }
+.encounter > strong small { font-family: "IBM Plex Mono", monospace; color: #bbb; font-size: .75rem; font-weight: 400; line-height: 1.5; }
+.site-footer { padding-bottom: 86px; }
+@media (max-width: 640px) {
+  .room-progress { right: 12px; bottom: 10px; padding: 9px 10px; gap: 10px; }
+  .room-progress__track { width: 70px; }
+  .room-progress__label { font-size: .42rem; }
+  .project-source-actions { width: 100%; }
+  .project-page .project-hero h1 { font-size: clamp(1.6rem, 6.5vw, 2.5rem); line-height: 1.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-waiting, .scroll-arrived { opacity: 1; translate: none; animation: none; }
+  .room-progress { display: none; }
 }
 
 /* Fix Kris and Ralsei portrait proportions */

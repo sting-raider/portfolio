@@ -2,6 +2,12 @@
 
 An Undertale/Deltarune-inspired portfolio for Ali Sufiyan Khan, featuring project case studies, an evidence-based skills inventory, character encounters, and a persistent shuffled soundtrack player.
 
+## Current archive
+
+Eight standalone projects: DANTE, Project SuperJoin, AegisFlow, RoleAtlas, the hybrid robotics controller, Hybrid K3s, F1 Agent, and The Abstract. Content reflects the September 2026 repository documentation and distinguishes demos, test-mode results, and ongoing research from production claims.
+
+Scroll encounters use one shared IntersectionObserver with short, stepped pixel entrances and a SOUL progress indicator. Content remains visible without JavaScript; reduced-motion preferences disable entrances and the indicator. Quick View stays animation-free.
+
 ## Local development
 
 ```bash

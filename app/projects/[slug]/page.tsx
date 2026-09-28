@@ -34,12 +34,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
         <section className="project-stat"><p className="pixel-label">PROOF SIGNAL</p><strong>{project.metric}</strong><span>{project.metricLabel}</span></section>
+        {project.note && <aside className="project-boundary"><p className="pixel-label">* CURRENT SAVE STATE</p><p>{project.note}</p></aside>}
         <section className="content-section two-column project-overview">
           <div><p className="eyebrow">The mission</p><h2>What the system does</h2></div>
           <div><p className="prose-lead">{project.summary}</p><ul className="check-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></div>
         </section>
         <section className="content-section">
-          <div className="section-heading"><div><p className="eyebrow">Bosses defeated</p><h2>Hard parts, made explicit</h2></div><p>Because the interesting work is rarely the final screenshot.</p></div>
+          <div className="section-heading"><div><p className="eyebrow">Engineering log</p><h2>Decisions behind the build</h2></div><p>What the system handles, and why it works this way.</p></div>
           <div className="challenge-grid">{project.challenges.map((challenge, index) => <article key={challenge.title} className="challenge-card"><span className="mono">BOSS 0{index + 1}</span><h3>{challenge.title}</h3><p>{challenge.body}</p></article>)}</div>
         </section>
         <section className="content-section architecture-section">
@@ -47,7 +48,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="architecture-map">{project.architecture.map((node, index) => <div className="architecture-node" key={node.name}><span className="architecture-node__index">{String(index + 1).padStart(2, "0")}</span><div><strong>{node.name}</strong><small>{node.tech}</small></div><p>{node.role}</p>{index < project.architecture.length - 1 && <ArrowRight className="architecture-arrow" />}</div>)}</div>
         </section>
         <section className="learning-note"><p className="pixel-label">LOG ENTRY / WHAT I LEARNED</p><blockquote>“{project.learned}”</blockquote></section>
-        <section className="project-next"><div><p className="eyebrow">Source signal</p><h2>See the builder behind the system.</h2></div><a className="button button--ghost" href="https://github.com/sting-raider" target="_blank" rel="noreferrer"><Code2 size={18} /> GitHub profile</a><Link className="button button--primary" href={`/projects/${nextProject.slug}`}>Next: {nextProject.shortName} <ArrowRight size={17} /></Link></section>
+        <section className="project-next"><div><p className="eyebrow">Source signal</p><h2>Inspect the work.</h2></div><div className="project-source-actions"><a className="button button--ghost" href={project.repository ?? "https://github.com/sting-raider"} target="_blank" rel="noreferrer"><Code2 size={18} /> {project.repository ? "View repository" : "GitHub profile"}</a>{project.demo && <a className="button button--ghost" href={project.demo} target="_blank" rel="noreferrer">{project.demoLabel ?? "View demo"} <ArrowRight size={17} /></a>}<Link className="button button--primary" href={`/projects/${nextProject.slug}`}>Next: {nextProject.shortName} <ArrowRight size={17} /></Link></div></section>
       </div>
     </div>
   );
