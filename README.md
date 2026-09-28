@@ -6,7 +6,7 @@ An Undertale/Deltarune-inspired portfolio for Ali Sufiyan Khan, featuring projec
 
 Eight standalone projects: DANTE, Project SuperJoin, AegisFlow, RoleAtlas, the hybrid robotics controller, Hybrid K3s, F1 Agent, and The Abstract. Content reflects the September 2026 repository documentation and distinguishes demos, test-mode results, and ongoing research from production claims.
 
-Scroll encounters use one shared IntersectionObserver with short, stepped pixel entrances and a SOUL progress indicator. Content remains visible without JavaScript; reduced-motion preferences disable entrances and the indicator. Quick View stays animation-free.
+Scrolling layers the fountain and title, opens a sticky battle-frame chapter transition, and glides a SOUL between the current project choices. Native scrolling is untouched; geometry is cached outside the animation loop. Project cards remain visible, while selected narrative sections use smooth eased entrances. Reduced-motion preferences disable the scroll scenes and entrances, and all content remains accessible without JavaScript. Quick View stays animation-free with full-width project headings.
 
 ## Local development
 
