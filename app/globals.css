@@ -1986,69 +1986,114 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
   .soundtrack--compact .music-control--icon { width: 27px; }
 }
 
-/* Scroll encounters: discrete pixel movement, with no layout shifts. */
-.scroll-waiting {
-  opacity: 0;
-  translate: 0 28px;
-}
-.scroll-arrived {
-  animation: room-enter 480ms steps(6, end) var(--reveal-delay, 0s) both;
-}
-.encounter.scroll-arrived,
-.project-card.scroll-arrived,
-.save-slot.scroll-arrived {
-  animation-name: encounter-enter;
-}
+/* Smooth entrances are reserved for narrative beats, not every project box. */
+.scroll-waiting { opacity: 0; translate: 0 18px; }
+.scroll-arrived { animation: room-enter 650ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0s) both; }
 @keyframes room-enter {
-  from { opacity: 0; translate: 0 28px; }
+  from { opacity: 0; translate: 0 18px; }
   to { opacity: 1; translate: 0 0; }
 }
-@keyframes encounter-enter {
-  0% { opacity: 0; translate: -24px 12px; }
-  60% { opacity: 1; translate: 4px 0; }
-  100% { opacity: 1; translate: 0 0; }
+
+/* Quick View: a title row, then the brief and evidence. Never squeeze pixel names into a sidebar. */
+.quick-page .quick-hero h1 { font-size: clamp(1.9rem, 4vw, 3.3rem); line-height: 1.4; letter-spacing: 0; }
+.quick-page .quick-section { grid-template-columns: 130px minmax(0, 1fr); gap: 28px; }
+.quick-page .quick-projects > a {
+  grid-template-columns: minmax(0, 1fr) minmax(170px, .36fr);
+  align-items: start;
+  gap: 22px 32px;
+  padding: 28px 32px;
+  min-height: 0;
 }
-.room-progress {
-  --room-progress: 0;
-  position: fixed;
-  z-index: 50;
-  right: 20px;
-  bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 2px solid #fff;
-  background: #000;
-  pointer-events: none;
+.quick-project__heading { grid-column: 1 / -1; min-width: 0; padding-right: 30px; }
+.quick-page .quick-projects h2 {
+  margin: 14px 0 0;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+  letter-spacing: 0;
+  overflow-wrap: normal;
+  word-break: normal;
 }
-.room-progress__label {
-  color: #fff;
-  font-family: "Press Start 2P", monospace;
-  font-size: .5rem;
+.quick-page .quick-projects .status { font-family: "IBM Plex Mono", monospace; font-size: .8rem; line-height: 1.6; }
+.quick-page .quick-projects p { grid-column: 1; grid-row: auto; font-size: .95rem; line-height: 1.75; }
+.quick-page .quick-projects strong { grid-column: 2; font-size: 1.1rem; line-height: 1.5; padding-left: 22px; border-left: 2px solid #ffdc38; }
+.quick-page .quick-projects strong small { margin-top: 8px; font-size: .8rem; line-height: 1.65; }
+.quick-page .quick-project__arrow { top: 36px; right: 28px; transform: none; }
+.quick-page .quick-skills > div:last-child { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; min-width: 0; }
+.quick-page .quick-skills h3 { font-size: 1.05rem; line-height: 1.7; letter-spacing: 0; }
+.quick-page .quick-skills p { font-size: .9rem; line-height: 1.8; }
+
+/* A scroll-controlled chapter change: the fountain recedes, then the battle frame closes in. */
+.fan-home { overflow: clip; }
+.dt-hero.scroll-scene-enabled .dt-hero__backdrop { transform: translate3d(0, calc(var(--hero-scroll, 0) * 150px), 0); }
+.dt-hero.scroll-scene-enabled .dt-hero__title { transform: translate3d(0, calc(var(--hero-scroll, 0) * 55px), 0); }
+.dt-hero.scroll-scene-enabled .dt-hero__title h1 span { display: inline-block; transform: translate3d(0, calc(var(--hero-scroll, 0) * -35px), 0); }
+.snowdin-archive { display: block; min-height: 0; overflow: visible; border: 0; background: #000; }
+.archive-stage { position: relative; display: grid; align-items: center; min-height: 580px; overflow: clip; }
+.snowdin-archive.scroll-scene-enabled { height: calc(100svh + 240px); min-height: 800px; }
+.scroll-scene-enabled .archive-stage { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); min-height: 500px; }
+.archive-frame { position: absolute; inset: 22px; pointer-events: none; }
+.archive-frame > span { position: absolute; width: 50%; height: 100%; border-block: 4px solid #fff; }
+.archive-frame > span:first-child { left: 0; border-left: 4px solid #fff; }
+.archive-frame > span:last-child { right: 0; border-right: 4px solid #fff; }
+.scroll-scene-enabled .archive-frame { --frame-open: clamp(0, calc(var(--archive-progress, 0) * 2), 1); opacity: var(--frame-open); }
+.scroll-scene-enabled .archive-frame > span:first-child { transform: translate3d(calc((1 - var(--frame-open)) * -170px), 0, 0); }
+.scroll-scene-enabled .archive-frame > span:last-child { transform: translate3d(calc((1 - var(--frame-open)) * 170px), 0, 0); }
+.snowdin-archive__copy { width: min(calc(100% - 100px), 1120px); gap: 45px; padding: 70px 0; }
+.snowdin-archive h2 { font-size: clamp(2rem, 3.35vw, 3.6rem); line-height: 1.4; letter-spacing: -.02em; }
+.snowdin-archive h2 > span { display: block; }
+.snowdin-archive h2 > span:last-child { color: #78b8ff; }
+.snowdin-archive .character-kicker { font-family: "IBM Plex Mono", monospace; font-size: .85rem; line-height: 1.7; }
+.scroll-scene-enabled .snowdin-archive h2 { --title-open: clamp(0, calc(var(--archive-progress, 0) * 1.6), 1); }
+.scroll-scene-enabled .snowdin-archive h2 > span:first-child { transform: translate3d(calc((1 - var(--title-open)) * -70px), 0, 0); }
+.scroll-scene-enabled .snowdin-archive h2 > span:last-child { transform: translate3d(calc((1 - var(--title-open)) * 70px), 0, 0); }
+.scroll-scene-enabled .snowdin-archive__action { transform: translate3d(0, calc((1 - var(--archive-progress, 0)) * 45px), 0); }
+.archive-scroll-cue { display: flex; align-items: center; gap: 12px; margin: 30px 0 0; color: #ffdc38; font-family: "IBM Plex Mono", monospace; font-size: .85rem; line-height: 1.8; }
+.archive-scroll-cue > span:last-child { font-family: "IBM Plex Mono", monospace; font-size: 1.5rem; }
+
+/* The SOUL glides between actual menu choices rather than a decorative progress widget. */
+[data-encounter-menu] { position: relative; }
+.encounter-cursor { display: none; position: absolute; top: 0; left: 0; z-index: 3; pointer-events: none; transition: transform 340ms cubic-bezier(.22, 1, .36, 1); }
+.scroll-menu-enabled > .encounter-cursor { display: flex; }
+.scroll-menu-enabled .encounter__soul, .scroll-menu-enabled .project-card__soul { visibility: hidden; }
+.scroll-menu-enabled > .is-current-encounter { border-color: #ffdc38; }
+.scroll-menu-enabled > .is-current-encounter h3 { color: #ffdc38; }
+.scroll-menu-enabled > a { transition: border-color 250ms ease, background-color 250ms ease; }
+.scroll-menu-enabled > a:hover, .scroll-menu-enabled > a:focus-visible { transform: none; }
+.project-archive-page .scroll-menu-enabled > .project-card:hover,
+.project-archive-page .scroll-menu-enabled > .project-card:focus-visible { transform: none; }
+.scroll-menu-enabled > a:hover:not(.is-current-encounter) { color: #fff; border-color: #fff; }
+.scroll-menu-enabled > a:hover:not(.is-current-encounter) h3 { color: #fff; }
+.scroll-menu-enabled > a:focus-visible { outline-offset: 4px; }
+
+@media (max-width: 900px) {
+  .snowdin-archive__copy { grid-template-columns: 1fr; gap: 26px; padding: 45px 0; }
+  .snowdin-archive h2 { font-size: clamp(1.65rem, 5.4vw, 3.4rem); }
+  .scroll-scene-enabled .archive-stage { min-height: 640px; }
+  .quick-page .quick-section { grid-template-columns: 1fr; }
 }
-.room-progress__track {
-  position: relative;
-  width: 108px;
-  height: 6px;
-  background: repeating-linear-gradient(to right, #333 0 8px, transparent 8px 12px);
+@media (max-width: 600px) {
+  .quick-page .quick-projects > a { grid-template-columns: minmax(0, 1fr); padding: 24px 22px; gap: 20px; }
+  .quick-page .quick-projects strong { grid-column: 1; padding: 16px 0 0; border-left: 0; border-top: 2px solid #ffdc38; }
+  .quick-page .quick-projects h2 { font-size: 1rem; }
+  .quick-page .quick-project__arrow { right: 20px; top: 28px; width: 18px; }
+  .archive-frame { inset: 10px; }
+  .snowdin-archive__copy { width: calc(100% - 52px); }
+  .snowdin-archive .character-kicker { font-size: .7rem; line-height: 1.8; }
+  .archive-scroll-cue { font-size: .75rem; gap: 9px; margin-top: 18px; }
+  .snowdin-archive.scroll-scene-enabled { height: calc(100svh + 160px); }
 }
-.room-progress__fill {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(to right, #ffdc38 0 8px, transparent 8px 12px);
-  transform: scaleX(var(--room-progress));
-  transform-origin: left;
+@media (prefers-reduced-motion: reduce) {
+  .scroll-waiting, .scroll-arrived { opacity: 1; translate: none; animation: none; }
+  .encounter-cursor { transition: none; }
+  .snowdin-archive.scroll-scene-enabled { height: auto; min-height: 0; }
+  .scroll-scene-enabled .archive-stage { position: relative; height: auto; }
+  .dt-hero.scroll-scene-enabled .dt-hero__backdrop,
+  .dt-hero.scroll-scene-enabled .dt-hero__title,
+  .dt-hero.scroll-scene-enabled .dt-hero__title h1 span,
+  .scroll-scene-enabled .snowdin-archive h2 > span,
+  .scroll-scene-enabled .snowdin-archive__action,
+  .scroll-scene-enabled .archive-frame > span { transform: none; }
 }
-.room-progress__soul {
-  position: absolute;
-  left: calc(var(--room-progress) * 100%);
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-}
-.room-progress__soul .soul { filter: none; }
-.room-progress__save { color: #ffdc38; font-size: 21px; line-height: 1; }
 .project-boundary {
   margin: 0 0 32px;
   padding: clamp(22px, 4vw, 38px);
@@ -2066,24 +2111,16 @@ button.pixel-soul[aria-disabled="true"] { cursor: default; }
 .project-source-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .inventory-tabs button small, .architecture-node small { font-family: "IBM Plex Mono", monospace; }
 .encounter > div, .quick-projects > a, .project-card__main { min-width: 0; }
-.encounter h3, .quick-projects h2 { overflow-wrap: anywhere; }
+.encounter h3 { overflow-wrap: anywhere; }
 .project-page .project-hero h1 { overflow-wrap: anywhere; }
 .encounter div > p { font-size: .7rem; line-height: 1.5; }
 .encounter-list__head { font-size: .75rem; line-height: 1.6; }
 .encounter-list__head span { font-size: .75rem; }
 .encounter > strong { display: grid; gap: 10px; max-width: 180px; }
 .encounter > strong small { font-family: "IBM Plex Mono", monospace; color: #bbb; font-size: .75rem; font-weight: 400; line-height: 1.5; }
-.site-footer { padding-bottom: 86px; }
 @media (max-width: 640px) {
-  .room-progress { right: 12px; bottom: 10px; padding: 9px 10px; gap: 10px; }
-  .room-progress__track { width: 70px; }
-  .room-progress__label { font-size: .42rem; }
   .project-source-actions { width: 100%; }
   .project-page .project-hero h1 { font-size: clamp(1.6rem, 6.5vw, 2.5rem); line-height: 1.4; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .scroll-waiting, .scroll-arrived { opacity: 1; translate: none; animation: none; }
-  .room-progress { display: none; }
 }
 
 /* Fix Kris and Ralsei portrait proportions */

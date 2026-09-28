@@ -2,6 +2,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { CharacterEncounter } from "@/components/CharacterEncounter";
 import { projects } from "@/data/portfolio";
 import { assetUrl } from "@/lib/site";
+import { Soul } from "@/components/Soul";
 
 export const metadata = { title: "Projects" };
 
@@ -36,7 +37,7 @@ export default function ProjectsPage() {
         />
       </section>
       <section className="content-section">
-        <div className="project-grid project-grid--all">{projects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div>
+        <div className="project-grid project-grid--all" data-encounter-menu><span className="encounter-cursor" aria-hidden="true"><Soul size="small" /></span>{projects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div>
       </section>
       <aside className="dialogue-box archive-note"><span>*</span><p>Move the SOUL to choose a project.<br />Select CHECK to open its full record.</p></aside>
     </div>

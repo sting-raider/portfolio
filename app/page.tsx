@@ -41,21 +41,26 @@ export default function Home() {
       </section>
 
       <section className="snowdin-archive">
-        <div className="snowdin-archive__copy">
-          <div>
-            <p className="character-kicker">NEW ENCOUNTERS / SEPTEMBER 2026</p>
-            <h2>THE PROJECT<br />ARCHIVE</h2>
-          </div>
-          <div className="snowdin-archive__action">
-            <SansDialogue />
-            <Link href="/projects" className="undertale-button"><Soul size="small" /> INSPECT PROJECTS</Link>
+        <div className="archive-stage">
+          <div className="archive-frame" aria-hidden="true"><span /><span /></div>
+          <div className="snowdin-archive__copy">
+            <div>
+              <p className="character-kicker">NEW ENCOUNTERS / SEPTEMBER 2026</p>
+              <h2><span>THE PROJECT</span><span>ARCHIVE</span></h2>
+              <p className="archive-scroll-cue"><Soul size="small" /> SCROLL TO ENCOUNTER <span aria-hidden="true">↓</span></p>
+            </div>
+            <div className="snowdin-archive__action">
+              <SansDialogue />
+              <Link href="/projects" className="undertale-button"><Soul size="small" /> INSPECT PROJECTS</Link>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="encounter-list">
         <div className="encounter-list__head"><p>* {projects.length} ENCOUNTERS APPEARED.</p><span>Commerce. Knowledge. Security. Robotics.</span></div>
-        <div className="encounter-grid">
+        <div className="encounter-grid" data-encounter-menu>
+          <span className="encounter-cursor" aria-hidden="true"><Soul size="small" /></span>
           {projects.map((project, index) => (
             <Link href={`/projects/${project.slug}`} className="encounter" key={project.slug}>
               <span className="encounter__soul"><Soul size="small" /></span>
