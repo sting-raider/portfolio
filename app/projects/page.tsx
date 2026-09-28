@@ -10,20 +10,16 @@ export default function ProjectsPage() {
     <div className="page-shell project-archive-page">
       <section className="page-hero compact-hero project-select-hero">
         <div>
-          <p className="eyebrow">PROJECT SELECT / 4 ENCOUNTERS</p>
+          <p className="eyebrow">PROJECT SELECT / {projects.length} ENCOUNTERS</p>
           <h1>Choose a world.<br /><em>Inspect the build.</em></h1>
-          <p className="page-lede">* Four systems appeared. Each carries a problem, constraints, trade-offs, and something measurable to prove.</p>
+          <p className="page-lede">* From purchase promises and financial evidence to network signals and robot control. Choose a system to inspect its build, results, and limits.</p>
         </div>
         <CharacterEncounter
           character="sans"
           name="SANS"
-          line="* heya. four projects, zero shortcuts. pick one and see what ali's been up to."
+          line="zero shortcuts. pick one and see what ali's been up to."
           src={assetUrl("/assets/sprites/sans-overworld.png")}
           lineImages={[
-            {
-              src: assetUrl("/assets/dialogue/sans-projects-line-1.png"),
-              text: "* heya. four projects,",
-            },
             {
               src: assetUrl("/assets/dialogue/sans-projects-line-2.png"),
               text: "zero shortcuts. pick one",

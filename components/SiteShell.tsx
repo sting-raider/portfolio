@@ -9,6 +9,7 @@ import { AmbienceButton } from "./AmbienceButton";
 import { EasterEggs } from "./EasterEggs";
 import { IntroGate } from "./IntroGate";
 import { Soul, type SoulColor } from "./Soul";
+import { ScrollEncounters } from "./ScrollEncounters";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -49,6 +50,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       <main id="main-content">{children}</main>
+      <ScrollEncounters />
       <footer className="site-footer">
         <p className="site-footer__save"><Soul color={soulColor} size="small" /> SAVE FILE: ALI SUFIYAN KHAN · {new Date().getFullYear()}</p>
         <p className="mono">Fan-made portfolio. UNDERTALE / DELTARUNE characters and music belong to Toby Fox.</p>
