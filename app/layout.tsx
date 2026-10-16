@@ -5,6 +5,9 @@ import "@fontsource-variable/space-grotesk";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "./globals.css";
+import "./motion-lab.css";
+import "./retro-motion.css";
+import "./dark-world.css";
 import { Analytics } from "@/components/Analytics";
 import { SiteShell } from "@/components/SiteShell";
 
@@ -28,9 +31,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body className={pixelPapyrus.variable}>
+      <body className={pixelPapyrus.variable} data-motion-variant={process.env.NEXT_PUBLIC_MOTION_VARIANT || undefined}>
         <SiteShell>{children}</SiteShell>
-        <Analytics />
+        {!process.env.NEXT_PUBLIC_MOTION_VARIANT && <Analytics />}
       </body>
     </html>
   );

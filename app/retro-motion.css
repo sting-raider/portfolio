@@ -1,0 +1,109 @@
+/* Local study 04: the original portfolio, with RPG timing instead of modern
+   spring/zoom effects. No global overrides until this direction is approved. */
+body[data-motion-variant="retro"] { background: #000; }
+body[data-motion-variant="retro"]::before { display: none; }
+body[data-motion-variant="retro"] .fan-home { background: #000; }
+body[data-motion-variant="retro"] .dt-hero { background: #000; }
+body[data-motion-variant="retro"] .dt-hero__title { animation: retro-title-in 480ms steps(8, end) both; }
+@keyframes retro-title-in {
+  from { clip-path: inset(0 0 100%); }
+  to { clip-path: inset(0); }
+}
+body[data-motion-variant="retro"] .dt-hero__title > p:first-child,
+body[data-motion-variant="retro"] .dt-subtitle { text-shadow: 2px 2px 0 #000; }
+body[data-motion-variant="retro"] .game-dialogue { height: 210px; align-items: start; }
+body[data-motion-variant="retro"] .game-dialogue__portrait { border: 0; background: #000; }
+body[data-motion-variant="retro"] .game-dialogue__copy { font-size: clamp(.85rem, 1.05vw, 1rem); }
+body[data-motion-variant="retro"] .game-dialogue__cursor { display: none; }
+body[data-motion-variant="retro"] .game-dialogue:hover { border-color: #fff; }
+body[data-motion-variant="retro"] .game-dialogue > i { animation: retro-prompt 900ms steps(1, end) infinite; }
+@keyframes retro-prompt { 50% { transform: translateY(4px); } }
+
+/* Selection changes instantly; all labels keep their position when the SOUL appears. */
+body[data-motion-variant="retro"] .command { transition: none; transform: none; }
+body[data-motion-variant="retro"] .command > .pixel-soul { display: inline-flex; visibility: hidden; position: absolute; left: 16px; }
+body[data-motion-variant="retro"] .command.retro-selected,
+body[data-motion-variant="retro"] .command:hover,
+body[data-motion-variant="retro"] .command:focus-visible { color: #ffdc38; transform: none; }
+body[data-motion-variant="retro"] .command.retro-selected > .pixel-soul,
+body[data-motion-variant="retro"] .command:hover > .pixel-soul,
+body[data-motion-variant="retro"] .command:focus-visible > .pixel-soul { visibility: visible; opacity: 1; }
+body[data-motion-variant="retro"] .command:active { background: #ffdc38; color: #000; }
+body[data-motion-variant="retro"] .retro-menu > .encounter-cursor { display: flex; transition: none; }
+body[data-motion-variant="retro"] .retro-menu .encounter__soul,
+body[data-motion-variant="retro"] .retro-menu .project-card__soul { visibility: hidden; }
+body[data-motion-variant="retro"] .retro-menu > a { transition: none; }
+body[data-motion-variant="retro"] .retro-menu > a:hover,
+body[data-motion-variant="retro"] .retro-menu > a:focus-visible { transform: none; }
+body[data-motion-variant="retro"] .retro-selected { border-color: #ffdc38; }
+body[data-motion-variant="retro"] .retro-selected h3 { color: #ffdc38; }
+body[data-motion-variant="retro"] .retro-menu .project-card:active,
+body[data-motion-variant="retro"] .retro-menu .encounter:active { background: #161000; }
+
+/* White battle-box outline assembles; its contents reveal after the frame lands. */
+body[data-motion-variant="retro"] .archive-stage { min-height: 580px; }
+body[data-motion-variant="retro"] .archive-frame > span { transform-origin: center; }
+body[data-motion-variant="retro"] .retro-entered .archive-frame { animation: retro-box-open 300ms steps(6, end) both; }
+@keyframes retro-box-open {
+  from { clip-path: inset(48% 36%); }
+  to { clip-path: inset(0); }
+}
+body[data-motion-variant="retro"] .retro-entered .snowdin-archive__copy { animation: retro-text-in 300ms 240ms steps(6, end) both; }
+@keyframes retro-text-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0); }
+}
+body[data-motion-variant="retro"] .retro-ready:not(.retro-entered) { visibility: hidden; }
+body[data-motion-variant="retro"] .retro-entered:not(.archive-stage) { animation: retro-room-in 240ms steps(4, end) both; }
+@keyframes retro-room-in {
+  from { clip-path: inset(0 0 100%); }
+  to { clip-path: inset(0); }
+}
+body[data-motion-variant="retro"] .snowdin-archive__action { gap: 20px; }
+.retro-sans { width: 92px; height: 120px; image-rendering: pixelated; object-fit: contain; justify-self: center; }
+body[data-motion-variant="retro"] .retro-entered .retro-sans { animation: retro-sans-arrives 400ms 180ms steps(5, end) both; }
+@keyframes retro-sans-arrives { from { transform: translateX(40px); } to { transform: translateX(0); } }
+body[data-motion-variant="retro"] .save-star { animation: retro-save 1200ms steps(2, end) infinite; text-shadow: none; transform-origin: center; }
+body[data-motion-variant="retro"] .save-panel p { font-size: .9rem; line-height: 1.8; }
+body[data-motion-variant="retro"] .save-stats { font-size: .75rem; }
+body[data-motion-variant="retro"] .save-button { font-size: .7rem; }
+@keyframes retro-save { 50% { opacity: .65; transform: scale(.88); } }
+body[data-motion-variant="retro"] .save-button:hover { animation: retro-save-confirm 160ms steps(2, end); }
+@keyframes retro-save-confirm { 50% { box-shadow: 4px 4px 0 #fff; } }
+body[data-motion-variant="retro"] .archive-scroll-cue > span:last-child { animation: retro-prompt 900ms steps(1, end) infinite; }
+body[data-motion-variant="retro"] .final-choice { background: #000; }
+body[data-motion-variant="retro"] .undertale-button { transition: none; }
+body[data-motion-variant="retro"] .undertale-button:hover { transform: none; }
+
+/* Brief black room change, not a glossy transition or a bright flashing screen. */
+.retro-room-cut { position: fixed; inset: 0; display: grid; grid-template-rows: repeat(4, 1fr); z-index: 89; pointer-events: none; animation: retro-cut-done 320ms step-end forwards; }
+.retro-room-cut > span { background: #000; animation: retro-shutter 240ms steps(4, end) both; }
+.retro-room-cut > span:nth-child(even) { animation-direction: normal; transform-origin: right; }
+@keyframes retro-shutter { from { clip-path: inset(0); } to { clip-path: inset(0 0 0 100%); } }
+@keyframes retro-cut-done { to { visibility: hidden; } }
+
+@media (max-width: 900px) {
+  body[data-motion-variant="retro"] .archive-stage { min-height: 690px; }
+  body[data-motion-variant="retro"] .snowdin-archive__copy { padding-block: 46px; }
+}
+@media (max-width: 560px) {
+  body[data-motion-variant="retro"] .dt-hero { min-height: 820px; }
+  body[data-motion-variant="retro"] .game-dialogue { height: 260px; grid-template-columns: 52px minmax(0, 1fr); padding: 16px 14px; gap: 14px; }
+  body[data-motion-variant="retro"] .game-dialogue__copy { font-size: .75rem; line-height: 1.9; }
+  body[data-motion-variant="retro"] .dt-subtitle { font-size: .72rem; }
+  body[data-motion-variant="retro"] .project-select-hero h1,
+  body[data-motion-variant="retro"] .skills-hero h1 { font-size: 2.1rem; line-height: 1.4; }
+  body[data-motion-variant="retro"] .command { font-size: .7rem; min-height: 58px; }
+  body[data-motion-variant="retro"] .command > .pixel-soul { left: 10px; width: 14px; height: 14px; }
+  body[data-motion-variant="retro"] .snowdin-archive h2 { font-size: clamp(1.65rem, 6.1vw, 2.25rem); }
+  body[data-motion-variant="retro"] .snowdin-archive__copy { width: calc(100% - 58px); }
+  body[data-motion-variant="retro"] .retro-sans { width: 69px; height: 90px; }
+  body[data-motion-variant="retro"] .archive-stage { min-height: 710px; }
+  body[data-motion-variant="retro"] .save-panel p { font-size: .65rem; line-height: 1.9; }
+  body[data-motion-variant="retro"] .save-stats { font-size: .6rem; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-motion-variant="retro"] .retro-ready:not(.retro-entered) { visibility: visible; }
+  body[data-motion-variant="retro"] .fan-home *, .retro-room-cut, .retro-room-cut > span { animation: none !important; clip-path: none !important; }
+  .retro-room-cut { display: none; }
+}

@@ -10,9 +10,14 @@ import { EasterEggs } from "./EasterEggs";
 import { IntroGate } from "./IntroGate";
 import { Soul, type SoulColor } from "./Soul";
 import { ScrollEncounters } from "./ScrollEncounters";
+import { MotionPreviewShell } from "./motion-lab/MotionPreviewShell";
+import { RetroMotion } from "./RetroMotion";
+import { DarkWorldBackdrop } from "./DarkWorld";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const preview = process.env.NEXT_PUBLIC_MOTION_VARIANT;
+  const retro = preview === "retro";
   const [open, setOpen] = useState(false);
   const soulColor: SoulColor = pathname === "/"
     ? "green"
@@ -27,7 +32,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <IntroGate />
+      {!preview && <DarkWorldBackdrop />}
+      {!preview && <div key={pathname} className="dw-wipe" aria-hidden="true">{Array.from({ length: 8 }, (_, i) => <span key={i} />)}</div>}
+      {!preview && <IntroGate />}
       <EasterEggs />
       <header className="site-header">
         <div className="brand">
@@ -49,8 +56,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
       </header>
-      <main id="main-content">{children}</main>
-      <ScrollEncounters />
+      {preview && !retro ? <MotionPreviewShell variant={preview}>{children}</MotionPreviewShell> : <main id="main-content">{children}</main>}
+      {!preview && <ScrollEncounters />}
+      {retro && <RetroMotion />}
       <footer className="site-footer">
         <p className="site-footer__save"><Soul color={soulColor} size="small" /> SAVE FILE: ALI SUFIYAN KHAN · {new Date().getFullYear()}</p>
         <p className="mono">Fan-made portfolio. UNDERTALE / DELTARUNE characters and music belong to Toby Fox.</p>

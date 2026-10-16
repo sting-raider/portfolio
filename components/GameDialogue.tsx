@@ -56,7 +56,7 @@ function characterDelay(character: string, baseDelay: number) {
   return baseDelay;
 }
 
-export function GameDialogue() {
+export function GameDialogue({ initialDelay }: { initialDelay?: number } = {}) {
   const [index, setIndex] = useState(0);
   const [visibleCharacters, setVisibleCharacters] = useState(0);
   const [ready, setReady] = useState(false);
@@ -123,7 +123,7 @@ export function GameDialogue() {
     }
 
     const introAlreadySeen = window.sessionStorage.getItem("ali-intro-seen") === "yes";
-    const startTimer = window.setTimeout(() => setReady(true), introAlreadySeen ? 180 : 2920);
+    const startTimer = window.setTimeout(() => setReady(true), initialDelay ?? (introAlreadySeen ? 180 : 2920));
 
     return () => {
       window.clearTimeout(startTimer);
@@ -132,7 +132,7 @@ export function GameDialogue() {
         audio.removeAttribute("src");
       });
     };
-  }, []);
+  }, [initialDelay]);
 
   useEffect(() => {
     if (!ready || lineComplete) return;
@@ -171,6 +171,7 @@ export function GameDialogue() {
     <button
       type="button"
       className="game-dialogue"
+      data-speaker={line.speaker}
       onClick={advance}
       aria-label={`${line.speaker} says: ${line.text} ${lineComplete ? "Advance dialogue." : "Finish this line."}`}
     >
