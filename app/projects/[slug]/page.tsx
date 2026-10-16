@@ -34,7 +34,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
         <section className="project-stat"><p className="pixel-label">PROOF SIGNAL</p><strong>{project.metric}</strong><span>{project.metricLabel}</span></section>
-        {project.note && <aside className="project-boundary"><p className="pixel-label">* CURRENT SAVE STATE</p><p>{project.note}</p></aside>}
+        {project.note && <aside className="project-boundary"><p className="pixel-label">CURRENT SAVE STATE</p><p>{project.note}</p></aside>}
         <section className="content-section two-column project-overview">
           <div><p className="eyebrow">The mission</p><h2>What the system does</h2></div>
           <div><p className="prose-lead">{project.summary}</p><ul className="check-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></div>

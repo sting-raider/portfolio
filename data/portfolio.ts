@@ -56,6 +56,46 @@ export const projects: Project[] = [
     learned: "An agent can suggest what should happen. Financial authority needs a smaller, deterministic system that can explain exactly why it allowed it.",
   },
   {
+    slug: "plaid",
+    shortName: "Plaid",
+    title: "Nintendo 64 games, recompiled into native programs",
+    world: "The Cartridge Forge",
+    kind: "Static recompilation research",
+    summary:
+      "A research tool that analyzes an untouched Nintendo 64 ROM into a closed program, lowers it to C, and links it into a native x86-64 or ARM64 build with no emulator inside.",
+    status: "Research ongoing · SM64 runs natively",
+    repository: "https://github.com/sting-raider/Plaid",
+    accent: "var(--cyan)",
+    metric: "99.03%",
+    metricLabel: "of Super Mario 64 functions discovered automatically",
+    stack: ["Rust", "C", "MIPS VR4300", "N64 RSP", "RT64", "SDL"],
+    features: [
+      "Automatic code discovery from the ROM alone, scored against a decompilation map used only as an oracle",
+      "A closure solver that accounts for every jump under an explicit, listed set of assumptions",
+      "CPU and RSP microcode lowered to C, each instruction form differential-tested against the ares emulator",
+      "Super Mario 64 runs natively at full speed with input, saves, and audio; Ocarina of Time reaches file select",
+    ],
+    challenges: [
+      {
+        title: "Where does the code go next?",
+        body: "Function pointers, jump tables, and relocated overlays hide control flow. A ROM only counts as closed when every indirect site is resolved, and each solver scope names the assumptions it rests on.",
+      },
+      {
+        title: "Proof over plausibility",
+        body: "Lowered instructions are checked against a pinned reference interpreter, so the native build is measured against ares instead of trusted because it boots.",
+      },
+    ],
+    architecture: [
+      { name: "ROM", tech: ".z64", role: "Untouched cartridge image" },
+      { name: "Discovery", tech: "Rust", role: "Finds code, loads, and overlays" },
+      { name: "Closure", tech: "Rust solver", role: "Accounts for every jump" },
+      { name: "Lowering", tech: "C", role: "CPU and RSP code to portable C" },
+      { name: "Runtime", tech: "C / RT64 / SDL", role: "Native graphics, audio, and input" },
+    ],
+    note: "Research in progress. Every game still runs under declared assumptions (0 of 16 retired); whole-ROM closure with no assumptions is the open goal. ROMs are user-supplied and never distributed.",
+    learned: "A result with its assumptions written down is worth more than a bigger number without them.",
+  },
+  {
     slug: "superjoin",
     shortName: "Project SuperJoin",
     title: "Financial facts with an evidence trail",

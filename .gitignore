@@ -1,4 +1,5 @@
 .next/
+.next-lab-*/
 node_modules/
 out/
 .artifacts/
