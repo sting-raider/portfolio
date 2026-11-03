@@ -25,11 +25,9 @@ pnpm build
 
 The site uses Next.js static export and writes the deployable site to `out/`. Pushes to `master` deploy to GitHub Pages through `.github/workflows/deploy-pages.yml`.
 
-## Private analytics
+## Analytics
 
 The public portfolio supports cookie-free, anonymous PostHog pageview and résumé-download tracking when the `POSTHOG_KEY` GitHub Actions repository variable is set to the PostHog project API key (`phc_…`). The optional `POSTHOG_HOST` variable selects the region (default `https://us.i.posthog.com`; use `https://eu.i.posthog.com` for EU Cloud).
-
-The login-gated Alphys analytics console is a separate server-rendered app in [`analytics-dashboard`](./analytics-dashboard). It embeds a public, read-only PostHog dashboard, so no PostHog API secret is stored. It still needs a server host such as Vercel because GitHub Pages cannot safely hold its admin credentials. Its setup and required environment variables are documented in that directory.
 
 ## Fan project credits
 
