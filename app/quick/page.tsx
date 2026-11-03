@@ -27,7 +27,7 @@ function Actions({ caseStudies = false }: { caseStudies?: boolean }) {
   return (
     <div className="qv-actions">
       {caseStudies && <Link className="qv-btn qv-btn--primary" href="/projects">CASE STUDIES <ArrowRight size={18} /></Link>}
-      <a className={`qv-btn ${caseStudies ? "" : "qv-btn--primary"}`} href={resumeDownloadUrl} download data-umami-event="resume-download" data-umami-event-location="quick-view"><Download size={18} /> RÉSUMÉ</a>
+      <a className={`qv-btn ${caseStudies ? "" : "qv-btn--primary"}`} href={resumeDownloadUrl} download data-event="resume-download" data-event-location="quick-view"><Download size={18} /> RÉSUMÉ</a>
       <a className="qv-btn" href="mailto:alizaydsab@gmail.com"><Mail size={18} /> EMAIL</a>
       <a className="qv-btn" href="https://github.com/sting-raider" target="_blank" rel="noreferrer"><Code2 size={18} /> GITHUB</a>
       <a className="qv-btn" href="https://www.linkedin.com/in/ali-khan-4197b1217" target="_blank" rel="noreferrer"><BriefcaseBusiness size={18} /> LINKEDIN</a>

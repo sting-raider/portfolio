@@ -5,13 +5,10 @@ import { SansDialogue } from "@/components/SansDialogue";
 import { Soul } from "@/components/Soul";
 import { projects } from "@/data/portfolio";
 import { assetUrl, resumeDownloadUrl } from "@/lib/site";
-import { MotionHome } from "@/components/motion-lab/MotionHome";
 import { MarqueeTapes, PartyStatus, WavyText } from "@/components/DarkWorld";
 import { BulletBoard } from "@/components/BulletBoard";
 
 export default function Home() {
-  const retro = process.env.NEXT_PUBLIC_MOTION_VARIANT === "retro";
-  if (process.env.NEXT_PUBLIC_MOTION_VARIANT && !retro) return <MotionHome variant={process.env.NEXT_PUBLIC_MOTION_VARIANT} />;
   return (
     <div className="fan-home">
       <section className="dt-hero">
@@ -27,7 +24,7 @@ export default function Home() {
         </div>
         <div className="dt-hero__interface">
           <PartyStatus />
-          <GameDialogue initialDelay={retro ? 350 : undefined} />
+          <GameDialogue />
           <nav className="battle-menu" aria-label="Portfolio command menu">
             <Link href="/projects" className="command command--fight"><Soul size="small" /> FIGHT <small>PROJECTS</small></Link>
             <Link href="/about" className="command command--act"><Soul size="small" /> ACT <small>ABOUT</small></Link>
@@ -46,7 +43,7 @@ export default function Home() {
           <p className="save-room">DARK WORLD · PROJECT ARCHIVE</p>
           <p className="save-line">* {projects.length} projects fill you with determination.</p>
         </div>
-        <a href={resumeDownloadUrl} download className="save-button" aria-label="Save résumé (download PDF)" data-umami-event="resume-download" data-umami-event-location="home"><Soul size="small" /> SAVE <small><Download size={14} /> RÉSUMÉ.PDF</small></a>
+        <a href={resumeDownloadUrl} download className="save-button" aria-label="Save résumé (download PDF)" data-event="resume-download" data-event-location="home"><Soul size="small" /> SAVE <small><Download size={14} /> RÉSUMÉ.PDF</small></a>
       </section>
 
       <section className="snowdin-archive">
@@ -59,7 +56,7 @@ export default function Home() {
               <p className="archive-scroll-cue"><Soul size="small" /> SCROLL TO ENCOUNTER <span aria-hidden="true">↓</span></p>
             </div>
             <div className="snowdin-archive__action">
-              <img className="retro-sans" src={assetUrl("/assets/sprites/sans-overworld.png")} alt="" />
+              <img className="archive-sans" src={assetUrl("/assets/sprites/sans-overworld.png")} alt="" />
               <SansDialogue />
               <Link href="/projects" className="undertale-button"><Soul size="small" /> INSPECT PROJECTS</Link>
             </div>

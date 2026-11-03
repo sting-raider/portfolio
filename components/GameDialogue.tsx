@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { assetUrl } from "@/lib/site";
+import { useCharacterTypewriter } from "./useCharacterTypewriter";
 
 type Speaker = "RALSEI" | "SUSIE" | "KRIS";
 
@@ -49,108 +50,35 @@ const lines: DialogueLine[] = [
   },
 ];
 
-function characterDelay(character: string, baseDelay: number) {
-  if (/[.!?]/.test(character)) return baseDelay + 170;
-  if (/[,;:]/.test(character)) return baseDelay + 85;
-  if (character === " ") return Math.max(12, baseDelay - 14);
-  return baseDelay;
-}
-
 export function GameDialogue({ initialDelay }: { initialDelay?: number } = {}) {
   const [index, setIndex] = useState(0);
-  const [visibleCharacters, setVisibleCharacters] = useState(0);
   const [ready, setReady] = useState(false);
-  const voicePools = useRef<Record<Speaker, HTMLAudioElement[]>>({
-    RALSEI: [],
-    SUSIE: [],
-    KRIS: [],
-  });
-  const voiceCursor = useRef<Record<Speaker, number>>({
-    RALSEI: 0,
-    SUSIE: 0,
-    KRIS: 0,
-  });
   const line = lines[index];
-  const lineComplete = visibleCharacters >= line.text.length;
-
-  const playVoice = useCallback((speaker: Speaker, character: string) => {
-    if (!/[A-Za-z0-9]/.test(character)) return;
-
-    const pool = voicePools.current[speaker];
-    if (!pool.length) return;
-
-    const cursor = voiceCursor.current[speaker] % pool.length;
-    const audio = pool[cursor];
-    voiceCursor.current[speaker] = cursor + 1;
-    audio.currentTime = 0;
-    void audio.play().catch(() => {
-      // Browsers can block sound until the first user gesture; typing still continues.
-    });
-  }, []);
+  const { visibleCharacters, complete: lineComplete, finish } = useCharacterTypewriter({
+    text: line.text,
+    voiceUrl: line.voice,
+    speed: line.speed,
+    volume: line.speaker === "SUSIE" ? 0.65 : 0.95,
+    enabled: ready,
+    initialDelay: 0,
+  });
 
   const advance = useCallback(() => {
-    if (!ready) {
-      setReady(true);
-      return;
-    }
-
-    if (visibleCharacters < line.text.length) {
-      setVisibleCharacters(line.text.length);
-      return;
-    }
-
-    setIndex((value) => (value + 1) % lines.length);
-    setVisibleCharacters(0);
-  }, [line.text.length, ready, visibleCharacters]);
+    if (!ready) setReady(true);
+    else if (!lineComplete) finish();
+    else setIndex((value) => (value + 1) % lines.length);
+  }, [finish, lineComplete, ready]);
 
   useEffect(() => {
-    const portraits = [...new Set(lines.map((line) => line.src))];
-
-    portraits.forEach((src) => {
+    [...new Set(lines.map((line) => line.src))].forEach((src) => {
       const image = new Image();
       image.src = src;
     });
 
-    for (const dialogueLine of lines) {
-      if (!dialogueLine.voice || voicePools.current[dialogueLine.speaker].length) continue;
-
-      voicePools.current[dialogueLine.speaker] = Array.from({ length: 4 }, () => {
-        const audio = new Audio(dialogueLine.voice);
-        audio.preload = "auto";
-        audio.volume = dialogueLine.speaker === "SUSIE" ? 0.65 : 0.95;
-        return audio;
-      });
-    }
-
     const introAlreadySeen = window.sessionStorage.getItem("ali-intro-seen") === "yes";
     const startTimer = window.setTimeout(() => setReady(true), initialDelay ?? (introAlreadySeen ? 180 : 2920));
-
-    return () => {
-      window.clearTimeout(startTimer);
-      Object.values(voicePools.current).flat().forEach((audio) => {
-        audio.pause();
-        audio.removeAttribute("src");
-      });
-    };
+    return () => window.clearTimeout(startTimer);
   }, [initialDelay]);
-
-  useEffect(() => {
-    if (!ready || lineComplete) return;
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) {
-      setVisibleCharacters(line.text.length);
-      return;
-    }
-
-    const character = line.text[visibleCharacters];
-    const timer = window.setTimeout(() => {
-      setVisibleCharacters((value) => Math.min(value + 1, line.text.length));
-      if (line.voice) playVoice(line.speaker, character);
-    }, characterDelay(character, line.speed));
-
-    return () => window.clearTimeout(timer);
-  }, [line, lineComplete, playVoice, ready, visibleCharacters]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {

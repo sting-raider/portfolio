@@ -4,11 +4,11 @@
 
 /* The grid sits behind everything, so the full-width black sections become transparent. */
 html { background: #000; }
-body:not([data-motion-variant]) { background: transparent; }
-body:not([data-motion-variant]) .fan-home,
-body:not([data-motion-variant]) .dt-hero,
-body:not([data-motion-variant]) .snowdin-archive,
-body:not([data-motion-variant]) .project-archive-page .page-hero { background: transparent; }
+body { background: transparent; }
+.fan-home,
+.dt-hero,
+.snowdin-archive,
+.project-archive-page .page-hero { background: transparent; }
 
 .dw-backdrop { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at 50% 40%, #12051f 0, #000 75%); }
 .dw-backdrop::before,
@@ -76,15 +76,15 @@ body:not([data-motion-variant]) .project-archive-page .page-hero { background: t
 .dt-hero__interface:has(.game-dialogue[data-speaker="RALSEI"]) .dw-party__panel--ralsei strong { color: var(--member); }
 
 /* Hero: let the fountain glow into the grid instead of ending in a flat black slab. */
-body:not([data-motion-variant]) .dt-hero::after { background: linear-gradient(to bottom, transparent 0 60%, rgba(0,0,0,.55) 100%); }
+.dt-hero::after { background: linear-gradient(to bottom, transparent 0 60%, rgba(0,0,0,.55) 100%); }
 
 /* Archive: the frame halves are solid, so the battle box closes over the grid as you scroll. */
-body:not([data-motion-variant]) .archive-frame > span { background: #000; }
-body:not([data-motion-variant]) .archive-frame > span:first-child { border-right: 0; }
-body:not([data-motion-variant]) .archive-frame > span:last-child { border-left: 0; }
-body:not([data-motion-variant]) .snowdin-archive__copy { z-index: 2; }
+.archive-frame > span { background: #000; }
+.archive-frame > span:first-child { border-right: 0; }
+.archive-frame > span:last-child { border-left: 0; }
+.snowdin-archive__copy { z-index: 2; }
 .snowdin-archive__action { position: relative; }
-.snowdin-archive__action .retro-sans { position: absolute; right: 24px; bottom: calc(100% - 4px); width: 69px; height: 90px; }
+.snowdin-archive__action .archive-sans { image-rendering: pixelated; object-fit: contain; position: absolute; right: 24px; bottom: calc(100% - 4px); width: 69px; height: 90px; }
 
 /* Encounter rows, save panel and final choice read as menu boxes floating over the battle grid. */
 .encounter, .save-panel { box-shadow: 0 0 0 4px #000, 8px 8px 0 4px rgba(0,0,0,.6); }
@@ -119,7 +119,7 @@ body:not([data-motion-variant]) .snowdin-archive__copy { z-index: 2; }
   .dw-party__hp { grid-column: 1 / -1; justify-self: stretch; width: auto; }
   .dw-party__hp small, .dw-party__hp em { font-size: .36rem; }
   .dw-party__bar { height: 6px; }
-  .snowdin-archive__action .retro-sans { display: none; }
+  .snowdin-archive__action .archive-sans { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -259,9 +259,7 @@ body:not([data-motion-variant]) .snowdin-archive__copy { z-index: 2; }
 }
 
 /* ───────────── Labels & small print: game name-plates instead of tiny floating captions ───────────── */
-main :is(.eyebrow, .pixel-label),
-.quick-section__label,
-.snowdin-archive .character-kicker {
+main :is(.eyebrow, .pixel-label), .snowdin-archive .character-kicker {
   --tag: var(--dw-yellow);
   display: inline-flex; align-items: center; gap: 12px; width: fit-content; max-width: 100%;
   margin: 0 0 24px; padding: 10px 16px 9px;
@@ -270,17 +268,14 @@ main :is(.eyebrow, .pixel-label),
   box-shadow: 6px 6px 0 #3d1a78;
 }
 /* A blinking block cursor, like a menu waiting for input. */
-main :is(.eyebrow, .pixel-label)::before,
-.quick-section__label::before,
-.snowdin-archive .character-kicker::before { content: ""; flex: none; width: .7em; height: .7em; background: currentColor; animation: dw-blink 1s steps(1) infinite; }
+main :is(.eyebrow, .pixel-label)::before, .snowdin-archive .character-kicker::before { content: ""; flex: none; width: .7em; height: .7em; background: currentColor; animation: dw-blink 1s steps(1) infinite; }
 /* Context colours: project accent on case studies, inverted on the yellow learning note. */
 .project-page :is(.eyebrow, .pixel-label),
 .project-page .project-stat .pixel-label { --tag: var(--project-accent, var(--dw-yellow)); color: #000; font-size: clamp(.66rem, .85vw, .8rem); }
 .learning-note .pixel-label { --tag: #000; color: var(--dw-yellow); box-shadow: 6px 6px 0 rgba(0,0,0,.25); }
-.quick-hero > .pixel-label, .not-found .pixel-label { --tag: var(--dw-susie); color: #000; }
+.not-found .pixel-label { --tag: var(--dw-susie); color: #000; }
 .inventory-panel__head .pixel-label { --tag: var(--dw-kris); color: #000; }
-.quick-section__label { align-self: start; padding-top: 10px; white-space: nowrap; font-size: .62rem; }
-body:not([data-motion-variant]) .project-page { background-color: transparent; }
+.project-page { background-color: transparent; }
 .snowdin-archive .character-kicker { --tag: #67b8ff; font-family: "Press Start 2P", monospace; font-size: clamp(.6rem, .8vw, .74rem); }
 
 /* Intro paragraphs read as narration: brighter, larger, hung off a heavy bar. */
@@ -302,7 +297,7 @@ body:not([data-motion-variant]) .project-page { background-color: transparent; }
 .save-panel .save-button .pixel-soul { animation: dw-blink .9s steps(1) infinite; }
 
 @media (max-width: 760px) {
-  main :is(.eyebrow, .pixel-label), .quick-section__label, .snowdin-archive .character-kicker { gap: 9px; padding: 8px 11px 7px; font-size: .58rem; box-shadow: 4px 4px 0 #3d1a78; }
+  main :is(.eyebrow, .pixel-label), .snowdin-archive .character-kicker { gap: 9px; padding: 8px 11px 7px; font-size: .58rem; box-shadow: 4px 4px 0 #3d1a78; }
   .page-lede, .section-heading > p, .contact-layout .muted { padding-left: 14px; border-left-width: 4px; font-size: 1rem; }
   .save-panel { grid-template-columns: 48px 1fr; gap: 16px; padding: 22px 18px; }
   .save-panel .save-stats { gap: 10px 18px; font-size: .72rem; }
@@ -311,8 +306,7 @@ body:not([data-motion-variant]) .project-page { background-color: transparent; }
   .save-panel .save-button { grid-column: 1 / -1; font-size: .9rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  main :is(.eyebrow, .pixel-label)::before, .quick-section__label::before, .snowdin-archive .character-kicker::before,
-  .save-panel .save-button .pixel-soul { animation: none; }
+  main :is(.eyebrow, .pixel-label)::before, .snowdin-archive .character-kicker::before, .save-panel .save-button .pixel-soul { animation: none; }
 }
 
 /* ───────────── Quick View: a speedrun with a LiveSplit panel ───────────── */

@@ -27,9 +27,9 @@ The site uses Next.js static export and writes the deployable site to `out/`. Pu
 
 ## Private analytics
 
-The public portfolio supports cookie-free Umami page and résumé-download tracking when the `UMAMI_WEBSITE_ID` GitHub Actions repository variable is configured. Optional `UMAMI_SCRIPT_URL` and `UMAMI_DOMAINS` variables override the Cloud script and allowed hostnames.
+The public portfolio supports cookie-free, anonymous PostHog pageview and résumé-download tracking when the `POSTHOG_KEY` GitHub Actions repository variable is set to the PostHog project API key (`phc_…`). The optional `POSTHOG_HOST` variable selects the region (default `https://us.i.posthog.com`; use `https://eu.i.posthog.com` for EU Cloud).
 
-The login-gated Alphys analytics console is a separate server-rendered app in [`analytics-dashboard`](./analytics-dashboard). It embeds a free, read-only Umami Share report, so no paid Cloud API key is required. It still needs a server host such as Vercel because GitHub Pages cannot safely hold its admin credentials. Its setup and required environment variables are documented in that directory.
+The login-gated Alphys analytics console is a separate server-rendered app in [`analytics-dashboard`](./analytics-dashboard). It embeds a public, read-only PostHog dashboard, so no PostHog API secret is stored. It still needs a server host such as Vercel because GitHub Pages cannot safely hold its admin credentials. Its setup and required environment variables are documented in that directory.
 
 ## Fan project credits
 
