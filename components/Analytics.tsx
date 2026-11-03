@@ -1,24 +1,28 @@
 import Script from "next/script";
 
+// PostHog's official loader snippet (no npm dependency). Memory persistence, no person profiles and no
+// session recording keep it cookie-free and anonymous, like the previous Umami setup.
+// Elements with data-event="name" (and optional data-event-location) are captured as named events.
 export function Analytics() {
-  const websiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
-  if (!websiteId) return null;
+  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  if (!key) return null;
 
-  const scriptUrl =
-    process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ||
-    "https://cloud.umami.is/script.js";
-  const domains =
-    process.env.NEXT_PUBLIC_UMAMI_DOMAINS ||
-    "sting-raider.github.io";
+  const config = {
+    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+    persistence: "memory",
+    person_profiles: "never",
+    capture_pageview: "history_change",
+    disable_session_recording: true,
+  };
 
   return (
-    <Script
-      src={scriptUrl}
-      data-website-id={websiteId}
-      data-domains={domains}
-      data-do-not-track="true"
-      data-exclude-search="true"
-      strategy="afterInteractive"
-    />
+    <Script id="posthog" strategy="lazyOnload">{`
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getSurveys getActiveMatchingSurveys captureException".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init(${JSON.stringify(key)}, ${JSON.stringify(config)});
+document.addEventListener("click", function (event) {
+  var el = event.target instanceof Element && event.target.closest("[data-event]");
+  if (el) posthog.capture(el.getAttribute("data-event"), { location: el.getAttribute("data-event-location") });
+}, true);
+`}</Script>
   );
 }

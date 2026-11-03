@@ -42,16 +42,16 @@ export function Dashboard({ shareUrl }: { shareUrl: string }) {
         <header>
           <div>
             <span className="panel-index">01</span>
-            <h2>UMAMI OBSERVATION WINDOW</h2>
+            <h2>POSTHOG OBSERVATION WINDOW</h2>
           </div>
           <a href={shareUrl} rel="noreferrer" target="_blank">
             OPEN FULLSCREEN &gt;
           </a>
         </header>
         <iframe
-          className="umami-share-frame"
+          className="share-frame"
           src={shareUrl}
-          title="Ali Portfolio analytics on Umami"
+          title="Ali Portfolio analytics on PostHog"
           loading="eager"
           referrerPolicy="no-referrer"
           sandbox="allow-forms allow-popups allow-same-origin allow-scripts"
@@ -60,7 +60,7 @@ export function Dashboard({ shareUrl }: { shareUrl: string }) {
 
       <footer className="dashboard-footer">
         <span>PRIVACY MODE: COOKIE-FREE // NO SESSION REPLAY</span>
-        <span>DATA SOURCE: FREE UMAMI SHARE</span>
+        <span>DATA SOURCE: PUBLIC POSTHOG DASHBOARD</span>
       </footer>
     </main>
   );

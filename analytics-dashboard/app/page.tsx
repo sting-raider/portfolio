@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 function getShareUrl() {
-  const configured = process.env.UMAMI_SHARE_URL?.trim();
+  const configured = process.env.POSTHOG_SHARE_URL?.trim();
 
   if (!configured) {
     return null;
@@ -14,12 +14,13 @@ function getShareUrl() {
   try {
     const url = new URL(configured);
 
-    const isValidUmamiShareUrl =
+    // Only a public PostHog Cloud dashboard link (US or EU) may be framed inside the console.
+    const isValidPostHogShareUrl =
       url.protocol === "https:" &&
-      url.hostname === "cloud.umami.is" &&
-      url.pathname.startsWith("/share/");
+      (url.hostname === "us.posthog.com" || url.hostname === "eu.posthog.com") &&
+      (url.pathname.startsWith("/embedded/") || url.pathname.startsWith("/shared/"));
 
-    return isValidUmamiShareUrl ? url.toString() : null;
+    return isValidPostHogShareUrl ? url.toString() : null;
   } catch {
     return null;
   }
@@ -60,7 +61,7 @@ export default async function Home() {
           <div className="dialogue">
             <span className="speaker">ALPHYS</span>
             <p>
-              * T-the Umami tunnel is missing! Set UMAMI_SHARE_URL in
+              * T-the PostHog tunnel is missing! Set POSTHOG_SHARE_URL in
               Vercel and redeploy.
             </p>
           </div>
