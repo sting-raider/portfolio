@@ -103,7 +103,6 @@ body { background: transparent; }
 .architecture-node,
 .success-panel,
 .empty-lab,
-.resume-page iframe,
 .site-nav a,
 .menu-button { border-radius: 0; }
 .contact-links a { border: 3px solid #fff; color: #fff; background: #000; font-family: "IBM Plex Mono", monospace; }

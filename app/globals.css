@@ -188,7 +188,6 @@ em { color: var(--cyan); font-family: "IBM Plex Mono Variable", monospace; font-
 
 .lab-hero { background: radial-gradient(circle at 85% 40%, rgba(173,145,255,.12), transparent 28rem); }.lab-flask { width: 200px; height: 200px; justify-self: center; color: var(--violet); filter: drop-shadow(0 0 20px rgba(173,145,255,.3)); }
 .empty-lab { margin: 20px 0 120px; padding: 75px 30px; text-align: center; border: 1px dashed var(--border-strong); }.empty-lab > span { color: rgba(255,255,255,.08); font-family: "Press Start 2P"; font-size: clamp(4rem, 12vw, 10rem); }.empty-lab h2 { margin: 35px 0 10px; }.empty-lab p { color: var(--muted); }
-.resume-page { padding-bottom: 100px; }.resume-head { display: flex; align-items: end; justify-content: space-between; padding: 70px 0 35px; }.resume-head h1 { margin: 10px 0 0; }.resume-page iframe { width: 100%; height: 1050px; border: 1px solid var(--border); background: white; }.resume-fallback { text-align: center; color: var(--muted); }.resume-fallback a { color: var(--cyan); }
 .not-found { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px; }.not-found h1 { max-width: 750px; margin: 20px 0; font-size: clamp(2.5rem, 6vw, 5rem); }.not-found > p:not(.pixel-label) { color: var(--muted); font-family: "IBM Plex Mono Variable"; }.not-found .button { margin-top: 20px; }
 @keyframes saveGlow { 50% { opacity: .45; transform: scale(.85); } }
 @keyframes introExit { to { opacity: 0; visibility: hidden; transform: scale(1.03); } }
@@ -223,7 +222,6 @@ em { color: var(--cyan); font-family: "IBM Plex Mono Variable", monospace; font-
   .education-card { grid-template-columns: 1fr; padding-inline: 25px; }.education-card .text-link { grid-column: 1; }.archive-note { width: 100%; }.project-hero__visual { height: 360px; }.challenge-grid { grid-template-columns: 1fr; }.challenge-card h3 { margin-top: 40px; }.learning-note { margin-bottom: 80px; }.project-next { flex-direction: column; align-items: stretch; }.project-next .button { width: 100%; }
   .inventory-tabs { grid-template-columns: 1fr; }.inventory-panel { padding: 28px; }.inventory-footnote { margin-top: -35px; }
   .contact-mascot { min-height: 390px; }.contact-mascot .dialogue-box { width: 330px; }.contact-form .button { width: 100%; }
-  .resume-head { align-items: start; flex-direction: column; gap: 20px; }.resume-page iframe { height: 650px; }
 }
 
 /* Carry the RPG language through the inner routes. */
